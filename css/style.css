@@ -1,0 +1,192 @@
+html {
+   font-family: Arial, sans-serif, Times, Times New Roman, serif;
+}
+
+body {
+  background-color: #E3EDFD;
+}
+
+table {
+    box-shadow: 4px 8px 8px #000;
+}
+
+h1 {
+   text-shadow: 2px 4px 4px #000;
+   color: #1A73E8;
+   font-weight: bold;
+   font-size: 3em;
+   text-align: center;
+}
+
+section
+{
+    display: inline-block;
+    vertical-align: top;
+}
+
+article
+{
+    margin-bottom: 25px;
+}
+
+table {
+    border-collapse: collapse;
+
+}
+
+th {
+    border: 1px solid #000;
+    padding: 5px;
+    padding-right: 40px;
+    color: #000;
+    font-weight: bold;
+}
+
+td {
+    border: 1px solid #000;
+}
+
+.tr1:nth-child(odd) {
+    background-color: #E3EDFD;
+}
+.tr1:nth-child(even) {
+    background-color: #fff;
+}
+
+.tr2 {
+    background-color: #8EAEF0;
+}
+
+.tr3 {
+    background-color: #8EAEF0;
+}
+
+.tr4 {
+    background-color: #8EAEF0;
+}
+
+.tr5 {
+    background-color: #8EAEF0;
+}
+
+.th1 {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: left;
+    background-color: #8EAEF0;
+}
+
+.th12 {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: left;
+    background-color: #ADC4F3;
+}
+
+.th2 {
+    font-size: 0.9em;
+}
+
+.td1, .td2, .td3, .td4 {
+    padding-top: 5px;
+    color: #000;
+}
+
+.td1 {
+    padding-bottom: 5px;
+    padding-left: 60px;
+    padding-right: 10px;
+    font-size: 0.8em;
+    text-align: right;
+    background-color: #fff;
+    font-size: 0.8em;
+}
+
+.td2 {
+    text-align: right;
+    font-size: 0.8em;
+    padding-right: 5px;
+    font-size: 0.8em;
+}
+
+.td3 {
+    font-size: 0.8em;
+    padding-left: 5px;
+}
+
+.td4 {
+   padding-right: 5px;
+   text-align: right;
+   font-size: 0.8em;
+}
+
+.td5, .td6 {
+   text-align:center;
+}
+
+.td7 {
+   padding-left: 5px;
+   font-size: 0.9em;
+   font-weight: bold;
+}
+
+.bas-page {
+    height: 50px;
+    text-align: center;
+}
+
+
+.bas-page a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #1A73E8;
+    line-height:50px;
+}
+
+.bas-page a:hover {
+    text-decoration:underline;
+}
+
+#contenu {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#droite {
+
+    margin-right: 10px;
+}
+
+#gauche {
+    margin-left: 10px;
+
+}
+
+#droite table {
+    width: 465px;
+}
+
+#compteur {
+    text-align: left;
+    margin-left: 20px;
+    color: #1A73E8;
+}
+/* Responsive */
+@media all and (max-width: 1024px) {
+
+    section {
+        display: block;
+        width: auto;
+    }
+
+    #contenu {
+        width: 100%;
+    }
+
+    #gauche ,#droite {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+}
