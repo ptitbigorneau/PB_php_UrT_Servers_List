@@ -279,7 +279,7 @@ while($row = mysqli_fetch_array($reponse)){
             <section id="droite">
 <!--- Tableau 1 ----------------------------------------------------------------------------------------------------------------------------------->
                 <article>
-                    <table style='border-collapse: collapse;'>
+                    <table>
                         <tr>
                             <th class="th1">Servers</th>
                             <td class="td1"><?php echo $servers ?></td>
@@ -361,7 +361,7 @@ for ($numero = 0; $numero < count($listpays); $numero++)
                 </article>
 <!--- Tableau 3 versions -------------------------------------------------------------------------------------------------------------------------->
                 <article>
-                    <table style='border-collapse: collapse;'>
+                    <table>
                         <thead>
                             <tr class="tr3">
                                 <th class='th2'>Version</th>
@@ -541,7 +541,7 @@ while($row=mysqli_fetch_array($reponse)){
             </section>
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 <?php
-mysqli_close();
+mysqli_close($mysqli);
 ?>
         </div>
         <footer>
