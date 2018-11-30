@@ -10,10 +10,10 @@ $dbname = $config['name'];
 
 $listpays = array();
 
-$mysqli = new mysqli($dbhost, $dbuser, $dbpassword, $dbname);
-$reponse = $mysqli->query("SELECT * FROM servers");
+$bdd = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.';charset=utf8', $dbuser, $dbpassword);
 
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT pays FROM servers");
+while($row=$reponse->fetch()){
 
     if (!in_array($row['pays'], $listpays)){
 
@@ -21,248 +21,250 @@ while($row=mysqli_fetch_array($reponse)){
 
     }
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers");
+while($row=$reponse->fetch()){
     $servers  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE players=0");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE players=0");
+while($row=$reponse->fetch()){
     $empty  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE players=1");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE players=1");
+while($row=$reponse->fetch()){
     $un  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='FFA'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='FFA'");
+while($row=$reponse->fetch()){
     $ffa  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='LMS'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='LMS'");
+while($row=$reponse->fetch()){
     $lms  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='TDM'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='TDM'");
+while($row=$reponse->fetch()){
     $tdm  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='TS'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='TS'");
+while($row=$reponse->fetch()){
     $ts  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='FTL'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='FTL'");
+while($row=$reponse->fetch()){
     $ftl  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='CandH'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='CandH'");
+while($row=$reponse->fetch()){
     $candh  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='CTF'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='CTF'");
+while($row=$reponse->fetch()){
     $ctf  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='Bomb'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='Bomb'");
+while($row=$reponse->fetch()){
     $bomb  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='Jump'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='Jump'");
+while($row=$reponse->fetch()){
     $jump  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='Freeze'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='Freeze'");
+while($row=$reponse->fetch()){
     $freeze  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT COUNT(*) FROM servers WHERE gametype='GunGame'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT COUNT(*) FROM servers WHERE gametype='GunGame'");
+while($row=$reponse->fetch()){
     $gungame  = $row['COUNT(*)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers");
-
-while($row = mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers");
+while($row = $reponse->fetch()){
      $players = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers");
-
-while($row = mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers");
+while($row = $reponse->fetch()){
      $bots = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='FFA'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='FFA'");
+while($row=$reponse->fetch()){
     $pffa  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='LMS'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='LMS'");
+while($row=$reponse->fetch()){
     $plms  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='TDM'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='TDM'");
+while($row=$reponse->fetch()){
     $ptdm  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='TS'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='TS'");
+while($row=$reponse->fetch()){
     $pts  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='FTL'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='FTL'");
+while($row=$reponse->fetch()){
     $pftl  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='CandH'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='CandH'");
+while($row=$reponse->fetch()){
     $pcandh  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='CTF'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='CTF'");
+while($row=$reponse->fetch()){
     $pctf  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='Bomb'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='Bomb'");
+while($row=$reponse->fetch()){
     $pbomb  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='Jump'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='Jump'");
+while($row=$reponse->fetch()){
     $pjump  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='Freeze'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='Freeze'");
+while($row=$reponse->fetch()){
     $pfreeze  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(players) FROM servers WHERE gametype='GunGame'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(players) FROM servers WHERE gametype='GunGame'");
+while($row=$reponse->fetch()){
     $pgungame  = $row['SUM(players)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='FFA'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='FFA'");
+while($row=$reponse->fetch()){
     $bffa  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='LMS'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='LMS'");
+while($row=$reponse->fetch()){
     $blms  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='TDM'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='TDM'");
+while($row=$reponse->fetch()){
     $btdm  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='TS'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='TS'");
+while($row=$reponse->fetch()){
     $bts  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='FTL'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='FTL'");
+while($row=$reponse->fetch()){
     $bftl  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='CandH'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='CandH'");
+while($row=$reponse->fetch()){
     $bcandh  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='CTF'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='CTF'");
+while($row=$reponse->fetch()){
     $bctf  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='Bomb'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='Bomb'");
+while($row=$reponse->fetch()){
     $bbomb  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='Jump'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='Jump'");
+while($row=$reponse->fetch()){
     $bjump  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='Freeze'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='Freeze'");
+while($row=$reponse->fetch()){
     $bfreeze  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
-$reponse = $mysqli->query("SELECT SUM(bots) FROM servers WHERE gametype='GunGame'");
-
-while($row=mysqli_fetch_array($reponse)){
+$reponse = $bdd->query("SELECT SUM(bots) FROM servers WHERE gametype='GunGame'");
+while($row=$reponse->fetch()){
     $bgungame  = $row['SUM(bots)'];
 }
+$reponse->closeCursor();
 
 $deux = $servers - $empty - $un;
 
-$reponse = $mysqli->query("SELECT * FROM servers order by version desc");
+$reponse = $bdd->query("SELECT version FROM servers order by version desc");
 
 $listversion = array();
 
-while($row = mysqli_fetch_array($reponse)){
+while($row = $reponse->fetch()){
 
     $version = $row['version'];
     if (!in_array($version, $listversion)) {
         array_push($listversion, $version);
     }
 }
+$reponse->closeCursor();
 ?>
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 <!DOCTYPE html>
@@ -321,19 +323,20 @@ for ($numero = 0; $numero < count($listpays); $numero++)
 {
     $paysdb = $listpays[$numero];
 
-    $reponse = $mysqli->query("SELECT * FROM servers WHERE pays='".$paysdb."'");
+    $reponse = $bdd->query("SELECT players, bots FROM servers WHERE pays='".$paysdb."'");
 
     $ns = 0;
     $nplayers = 0;
     $nbots = 0;
 
-    while($row = mysqli_fetch_array($reponse)){
+    while($row = $reponse->fetch()){
 
         $ns = $ns + 1;
         $nplayers = $nplayers + $row['players'];
         $nbots = $nbots + $row['bots'];
 
     }
+    $reponse->closeCursor();
 ?>
                             <tr class="tr1">
 <?php
@@ -376,19 +379,20 @@ for ($numero = 0; $numero < count($listversion); $numero++)
 {
     $versiondb = $listversion[$numero];
 
-    $reponse = $mysqli->query("SELECT * FROM servers WHERE version='".$versiondb."'");
+    $reponse = $bdd->query("SELECT players, bots FROM servers WHERE version='".$versiondb."'");
 
     $ns = 0;
     $nplayers = 0;
     $nbots = 0;
 
-    while($row = mysqli_fetch_array($reponse)){
+    while($row = $reponse->fetch()){
 
         $ns = $ns + 1;
         $nplayers = $nplayers + $row['players'];
         $nbots = $nbots + $row['bots'];
 
     }
+    $reponse->closeCursor();
 ?>
                             <tr class="tr1">
                                 <td class="td7"> <?php echo $versiondb ?></td>
@@ -489,7 +493,7 @@ for ($numero = 0; $numero < count($listversion); $numero++)
             <section id="gauche">
 
 <?php
-$reponse = $mysqli->query("SELECT * FROM servers order by version desc, players desc");
+$reponse = $bdd->query("SELECT * FROM servers order by version desc, players desc");
 ?>
                 <table>
                     <thead>
@@ -507,7 +511,7 @@ $reponse = $mysqli->query("SELECT * FROM servers order by version desc, players 
                     </thead>
                     <tbody>
 <?php
-while($row=mysqli_fetch_array($reponse)){
+while($row=$reponse->fetch()){
     $ip = explode(":", $row['adresse']);
     $pays = $row['pays'];
 ?>
@@ -535,13 +539,14 @@ while($row=mysqli_fetch_array($reponse)){
                         </tr>
 <?php
 }
+$reponse->closeCursor();
 ?>
                     </tbody>
                 </table>
             </section>
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 <?php
-mysqli_close($mysqli);
+$reponse->closeCursor();
 ?>
         </div>
         <footer>
