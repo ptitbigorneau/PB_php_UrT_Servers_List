@@ -219,7 +219,7 @@ def updateserversonindb(server, adresse, port):
 
 def updateserversoffindb(listservers):
 
-    conn = pymysql.connect('localhost','master','motdepasse', 'master')
+    conn = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
 
     with conn:
 
