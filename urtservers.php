@@ -268,7 +268,7 @@ $reponse->closeCursor();
 ?>
 <!--                                                                                                                                                  -->
 <!DOCTYPE html>
-    <html>
+    <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
         <head>
             <meta charset="utf-8" />
             <link rel="stylesheet" href="css/style.css" />
@@ -278,9 +278,9 @@ $reponse->closeCursor();
         <h1>Servers UrbanTerror 4.3</h1>
         <div id="contenu">
             <p id="compteur">updated :</p>
-            <section id="droite">
+            <div id="droite">
 <!-- Tableau 1 -->
-                <article>
+                <div class="tableau">
                     <table>
                         <tr>
                             <th class="th1">Servers</th>
@@ -304,9 +304,9 @@ $reponse->closeCursor();
                         </tr>
 
                     </table>
-                </article>
+                </div>
 <!-- Tableau 2 Pays -->
-                <article>
+                <div class="tableau">
                     <table>
                         <thead>
                             <tr class="tr2">
@@ -342,7 +342,7 @@ for ($numero = 0; $numero < count($listpays); $numero++)
 <?php
     if ($paysdb) {
 ?>
-                                <td class="td5"><a href='#'><img src='flags/<?php echo strtolower($paysdb).".png" ?>' border='0' title='<?php echo $arraypays[$paysdb] ?>'></img></a></td>
+                                <td class="td5"><a href='#'><img src='flags/<?php echo strtolower($paysdb).".png" ?>' title='<?php echo $arraypays[$paysdb] ?>'/></a></td>
 <?php
     }
     else {
@@ -361,9 +361,9 @@ for ($numero = 0; $numero < count($listpays); $numero++)
                          </tbody>
                     </table>
 
-                </article>
+                </div>
 <!-- Tableau 3 versions -->
-                <article>
+                <div class="tableau">
                     <table>
                         <thead>
                             <tr class="tr3">
@@ -405,9 +405,9 @@ for ($numero = 0; $numero < count($listversion); $numero++)
 ?>
                         </tbody>
                     </table>
-                </article>
+                </div>
 <!-- Tableau 4 gametypes -->
-                <article>
+                <div class="tableau">
                     <table>
                         <thead>
                             <tr class="tr4">
@@ -487,10 +487,10 @@ for ($numero = 0; $numero < count($listversion); $numero++)
 
                         </tbody>
                     </table>
-                </article>
-            </section>
+                </div>
+            </div>
 <!-- Tableau 5 servers  -->
-            <section id="gauche">
+            <div id="gauche">
 
 <?php
 $reponse = $bdd->query("SELECT * FROM servers order by version desc, players desc");
@@ -520,7 +520,7 @@ while($row=$reponse->fetch()){
 <?php
     if ($pays) {
 ?>
-                            <td class="td6"><a href='#'><img src='flags/<?php echo strtolower($pays).".png" ?>' border='0' title='<?php echo $arraypays[$pays] ?>'></img></a></td>
+                            <td class="td6"><a href='#'><img src='flags/<?php echo strtolower($pays).".png" ?>' title='<?php echo $arraypays[$pays] ?>'/></a></td>
 <?php
     }
     else {
@@ -543,7 +543,7 @@ $reponse->closeCursor();
 ?>
                     </tbody>
                 </table>
-            </section>
+            </div>
 <!--                                                                                                                                                  -->
 <?php
 $reponse->closeCursor();
@@ -554,8 +554,7 @@ $reponse->closeCursor();
                 <span style ="color:green;">P</span><span style="color: #000;">tit</span><span style ="color:green;">B</span><span style="color: #000;">igorneau</span> © 2018 <a href="https://ptitbigorneau.fr">ptitbigorneau.fr</a>
             </div>
         </footer>
+        <script src="js/javascript.js"></script>
     </body>
-
-    <script src="js/javascript.js"></script>
 
 </html>
