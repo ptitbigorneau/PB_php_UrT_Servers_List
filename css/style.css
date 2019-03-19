@@ -87,6 +87,11 @@ td {
     font-size: 0.9em;
 }
 
+.th_server {
+    font-size: 0.9em;
+    width:330px;
+}
+
 .td1, .td2, .td3, .td4 {
     padding-top: 5px;
     color: #000;

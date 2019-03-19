@@ -284,23 +284,23 @@ $reponse->closeCursor();
                     <table>
                         <tr>
                             <th class="th1">Servers</th>
-                            <td class="td1"><?php echo $servers ?></td>
+                            <td class="td1"><?php echo $servers; ?></td>
                         </tr>
                         <tr>
                             <th class="th12">Servers without Players</th>
-                            <td class="td1"><?php echo $empty ?></td>
+                            <td class="td1"><?php echo $empty; ?></td>
                         </tr>
                         <tr>
                             <th class="th1">Servers with Players</th>
-                            <td class="td1"><?php echo $un+$deux ?></td>
+                            <td class="td1"><?php echo $un+$deux; ?></td>
                         </tr>
                         <tr>
                             <th class="th12">Player(s)</th>
-                            <td class="td1"> <?php echo $players ?></td>
+                            <td class="td1"> <?php echo $players; ?></td>
                         </tr>
                         <tr>
                             <th class="th1">Bot(s)</th>
-                            <td class="td1"><?php echo $bots ?></td>
+                            <td class="td1"><?php echo $bots; ?></td>
                         </tr>
 
                     </table>
@@ -342,7 +342,7 @@ for ($numero = 0; $numero < count($listpays); $numero++)
 <?php
     if ($paysdb) {
 ?>
-                                <td class="td5"><a href='#'><img src='flags/<?php echo strtolower($paysdb).".png" ?>' title='<?php echo $arraypays[$paysdb] ?>'/></a></td>
+                                <td class="td5"><a href='#'><img src='flags/<?php echo strtolower($paysdb).".png"; ?>' title='<?php echo $arraypays[$paysdb]; ?>'/></a></td>
 <?php
     }
     else {
@@ -351,9 +351,9 @@ for ($numero = 0; $numero < count($listpays); $numero++)
 <?php
     }
 ?>
-                                <td class="td2"> <?php echo $ns ?></td>
-                                <td class="td2"> <?php echo $nplayers ?></td>
-                                <td class="td2"> <?php echo $nbots ?></td>
+                                <td class="td2"> <?php echo $ns; ?></td>
+                                <td class="td2"> <?php echo $nplayers; ?></td>
+                                <td class="td2"> <?php echo $nbots; ?></td>
                             </tr>
 <?php
 }
@@ -395,10 +395,10 @@ for ($numero = 0; $numero < count($listversion); $numero++)
     $reponse->closeCursor();
 ?>
                             <tr class="tr1">
-                                <td class="td7"> <?php echo $versiondb ?></td>
-                                <td class="td2"> <?php echo $ns ?></td>
-                                <td class="td2"> <?php echo $nplayers ?></td>
-                                <td class="td2"> <?php echo $nbots ?></td>
+                                <td class="td7"> <?php echo $versiondb; ?></td>
+                                <td class="td2"> <?php echo $ns; ?></td>
+                                <td class="td2"> <?php echo $nplayers; ?></td>
+                                <td class="td2"> <?php echo $nbots; ?></td>
                             </tr>
 <?php
 }
@@ -420,69 +420,69 @@ for ($numero = 0; $numero < count($listversion); $numero++)
                         <tbody>
                             <tr class="tr1">
                                 <td class="td7">FFA</td>
-                                <td class="td2"> <?php echo $ffa ?></td>
-                                <td class="td2"> <?php echo $pffa ?></td>
-                                <td class="td2"> <?php echo $bffa ?></td>
+                                <td class="td2"> <?php echo $ffa; ?></td>
+                                <td class="td2"> <?php echo $pffa; ?></td>
+                                <td class="td2"> <?php echo $bffa; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">LMS</td>
-                                <td class="td2"> <?php echo $lms ?></td>
-                                <td class="td2"> <?php echo $plms ?></td>
-                                <td class="td2"> <?php echo $blms ?></td>
+                                <td class="td2"> <?php echo $lms; ?></td>
+                                <td class="td2"> <?php echo $plms; ?></td>
+                                <td class="td2"> <?php echo $blms; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">TDM</td>
-                                <td class="td2"> <?php echo $tdm ?></td>
-                                <td class="td2"> <?php echo $ptdm ?></td>
-                                <td class="td2"> <?php echo $btdm ?></td>
+                                <td class="td2"> <?php echo $tdm; ?></td>
+                                <td class="td2"> <?php echo $ptdm; ?></td>
+                                <td class="td2"> <?php echo $btdm; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">TS</td>
-                                <td class="td2"> <?php echo $ts ?></td>
-                                <td class="td2"> <?php echo $pts ?></td>
-                                <td class="td2"> <?php echo $bts ?></td>
+                                <td class="td2"> <?php echo $ts; ?></td>
+                                <td class="td2"> <?php echo $pts; ?></td>
+                                <td class="td2"> <?php echo $bts; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">FTL</td>
-                                <td class="td2"> <?php echo $ftl ?></td>
-                                <td class="td2"> <?php echo $pftl ?></td>
-                                <td class="td2"> <?php echo $bftl ?></td>
+                                <td class="td2"> <?php echo $ftl; ?></td>
+                                <td class="td2"> <?php echo $pftl; ?></td>
+                                <td class="td2"> <?php echo $bftl; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">CandH</td>
-                                <td class="td2"> <?php echo $candh ?></td>
-                                <td class="td2"> <?php echo $pcandh ?></td>
-                                <td class="td2"> <?php echo $bcandh ?></td>
+                                <td class="td2"> <?php echo $candh; ?></td>
+                                <td class="td2"> <?php echo $pcandh; ?></td>
+                                <td class="td2"> <?php echo $bcandh; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">CTF</td>
-                                <td class="td2"> <?php echo $ctf ?></td>
-                                <td class="td2"> <?php echo $pctf ?></td>
-                                <td class="td2"> <?php echo $bctf ?></td>
+                                <td class="td2"> <?php echo $ctf; ?></td>
+                                <td class="td2"> <?php echo $pctf; ?></td>
+                                <td class="td2"> <?php echo $bctf; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">Bomb</td>
-                                <td class="td2"> <?php echo $bomb ?></td>
-                                <td class="td2"> <?php echo $pbomb ?></td>
-                                <td class="td2"> <?php echo $bbomb ?></td>
+                                <td class="td2"> <?php echo $bomb; ?></td>
+                                <td class="td2"> <?php echo $pbomb; ?></td>
+                                <td class="td2"> <?php echo $bbomb; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">Jump</td>
-                                <td class="td2"> <?php echo $jump ?></td>
-                                <td class="td2"> <?php echo $pjump ?></td>
-                                <td class="td2"> <?php echo $bjump ?></td>
+                                <td class="td2"> <?php echo $jump; ?></td>
+                                <td class="td2"> <?php echo $pjump; ?></td>
+                                <td class="td2"> <?php echo $bjump; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">Freeze</td>
-                                <td class="td2"> <?php echo $freeze ?></td>
-                                <td class="td2"> <?php echo $pfreeze ?></td>
-                                <td class="td2"> <?php echo $bfreeze ?></td>
+                                <td class="td2"> <?php echo $freeze; ?></td>
+                                <td class="td2"> <?php echo $pfreeze; ?></td>
+                                <td class="td2"> <?php echo $bfreeze; ?></td>
                             </tr>
                             <tr class="tr1">
                                 <td class="td7">GunGame</td>
-                                <td class="td2"> <?php echo $gungame ?></td>
-                                <td class="td2"> <?php echo $pgungame ?></td>
-                                <td class="td2"> <?php echo $bgungame ?></td>
+                                <td class="td2"> <?php echo $gungame; ?></td>
+                                <td class="td2"> <?php echo $pgungame; ?></td>
+                                <td class="td2"> <?php echo $bgungame; ?></td>
                             </tr>
 
                         </tbody>
@@ -500,7 +500,7 @@ $reponse = $bdd->query("SELECT * FROM servers order by version desc, players des
                         <tr class="tr5">
                             <th class='th2'>Version</th>
                             <th class='th2'> </th>
-                            <th class='th2' style="width:330px;">Server</th>
+                            <th class='th_server'>Server</th>
                             <th class='th2'>Address</th>
                             <th class='th2'>Gametype</th>
                             <th class='th2'>Player(s)</th>
@@ -516,11 +516,11 @@ while($row=$reponse->fetch()){
     $pays = $row['pays'];
 ?>
                         <tr class="tr1">
-                            <td class="td3"> <?php echo $row['version'] ?></td>
+                            <td class="td3"> <?php echo $row['version']; ?></td>
 <?php
     if ($pays) {
 ?>
-                            <td class="td6"><a href='#'><img src='flags/<?php echo strtolower($pays).".png" ?>' title='<?php echo $arraypays[$pays] ?>'/></a></td>
+                            <td class="td6"><a href='#'><img src='flags/<?php echo strtolower($pays).".png"; ?>' title='<?php echo $arraypays[$pays]; ?>'/></a></td>
 <?php
     }
     else {
@@ -529,13 +529,13 @@ while($row=$reponse->fetch()){
 <?php
     }
 ?>
-                            <td class="td7"> <?php echo $row['name'] ?></td>
-                            <td class="td3"> <?php echo $row['adresse'] ?></td>
-                            <td class="td3"> <?php echo $row['gametype'] ?></td>
-                            <td class="td4"> <?php echo $row['players'] ?></td>
-                            <td class="td4"> <?php echo $row['bots'] ?></td>
-                            <td class="td4"> <?php echo $row['slots'] ?></td>
-                            <td class="td4"> <?php echo date('H:i',$row['date']) ?></td>
+                            <td class="td7"> <?php echo $row['name']; ?></td>
+                            <td class="td3"> <?php echo $row['adresse']; ?></td>
+                            <td class="td3"> <?php echo $row['gametype']; ?></td>
+                            <td class="td4"> <?php echo $row['players']; ?></td>
+                            <td class="td4"> <?php echo $row['bots']; ?></td>
+                            <td class="td4"> <?php echo $row['slots']; ?></td>
+                            <td class="td4"> <?php echo date('H:i',$row['date']); ?></td>
                         </tr>
 <?php
 }
