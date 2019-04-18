@@ -20,7 +20,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 __author__  = 'PtitBigorneau'
-__version__ = '1.0'
+__version__ = '1.1'
 
 import socket
 import pymysql
@@ -29,7 +29,7 @@ import datetime, time, calendar
 from time import gmtime, strftime
 from datetime import datetime
 from q3masterserver import Q3masterServer
-import pygeoip
+import geoip2.database
 import ConfigParser
 
 config = ConfigParser.ConfigParser()
@@ -39,7 +39,7 @@ dbuser = config.get('database', 'user')
 dbpassword = config.get('database', 'password')
 dbname = config.get('database', 'name')
 
-geoipdat_path = config.get('geoip', 'path')
+geoip2_path = config.get('geoip2', 'path')
 
 def cdate():
 
@@ -180,9 +180,12 @@ def updateserversonindb(server, adresse, port):
 
     ipdata = server.split(':')
 
-    gi = pygeoip.GeoIP(geoipdat_path)
-
-    pays =  pays = gi.country_code_by_name(ipdata[0])
+    reader = geoip2.database.Reader(geoip2_path)
+    try:
+        r = reader.city(ipdata[0])
+        pays = r.country.iso_code
+    except:
+        pays = ""
 
     resultat = cur.fetchone()
 
