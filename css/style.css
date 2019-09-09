@@ -18,17 +18,6 @@ h1 {
    text-align: center;
 }
 
-section
-{
-    display: inline-block;
-    vertical-align: top;
-}
-
-article
-{
-    margin-bottom: 25px;
-}
-
 table {
     border-collapse: collapse;
 
@@ -44,6 +33,11 @@ th {
 
 td {
     border: 1px solid #000;
+}
+
+.tableau
+{
+    margin-bottom: 25px;
 }
 
 .tr1:nth-child(odd) {
@@ -159,11 +153,14 @@ td {
 }
 
 #droite {
-
+    display: inline-block;
+    vertical-align: top;
     margin-right: 10px;
 }
 
 #gauche {
+    display: inline-block;
+    vertical-align: top;
     margin-left: 10px;
 
 }
@@ -180,16 +177,13 @@ td {
 /* Responsive */
 @media all and (max-width: 1024px) {
 
-    section {
-        display: block;
-        width: auto;
-    }
-
     #contenu {
         width: 100%;
     }
 
-    #gauche ,#droite {
+    #gauche, #droite {
+        display: block;
+        width: auto;
         margin-left: 10px;
         margin-right: 10px;
     }
