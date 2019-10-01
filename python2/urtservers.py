@@ -1,7 +1,7 @@
 # -*-coding:Utf-8 -*
 
-# UrTServers (PYTHON 3)
-# Copyright (C) 2018-2019 PtitBigorneau
+# UrTServers
+# Copyright (C) 2018 PtitBigorneau
 #
 # PtitBigorneau - www.ptitbigorneau.fr
 #
@@ -20,24 +20,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 __author__  = 'PtitBigorneau'
-__version__ = '2'
-#########################################################################################################
-import sys
+__version__ = '1.1'
 
-if sys.version_info < (3,):
-    raise SystemExit("Sorry, requires Python 3, not Python 2.")
-#########################################################################################################
 import socket
 import pymysql
-import _thread
+import thread
 import datetime, time, calendar
 from time import gmtime, strftime
 from datetime import datetime
 from q3masterserver import Q3masterServer
 import geoip2.database
-import configparser
+import ConfigParser
 
-config = configparser.ConfigParser()
+config = ConfigParser.ConfigParser()
 config.read("config/config.ini")
 dbhost = config.get('database', 'host')
 dbuser = config.get('database', 'user')
@@ -60,11 +55,11 @@ def status(adresse, port):
 
     retries = 5
     timeout = 20
-    packet_prefix = bytes([0xff] * 4)
+    packet_prefix = '\xff' * 4
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect((adresse, int(port)))
     s.settimeout(timeout)
-    cmd = packet_prefix + b"getstatus\n"
+    cmd = packet_prefix+"getstatus\n"
     reponse = None
 
     while retries:
@@ -80,8 +75,6 @@ def status(adresse, port):
 
     if reponse:
 
-        reponse = reponse.replace(b"\xff",b"*").decode()
-        
         index1 = reponse.find('\n')
         infoline = reponse[index1+1:]
 
@@ -143,13 +136,11 @@ def supurtcolors(data):
     data = data.replace('  ',' ')
     data = data.replace('<','&lt;')
     data = data.replace('>','&gt;')
-    data = data.replace('\x07','')
-    data = data.replace('//','')
     return data
 
 def allservers(opt):
 
-    print("Search all servers")
+    print "Search all servers"
     listallservers = listserv(opt)
     updateserversoffindb(listallservers)
 
@@ -157,12 +148,12 @@ def allservers(opt):
         data = server.split(":")
         adresse = data[0]
         port = data[1]
-        _thread.start_new_thread(updateserversonindb, (server, adresse, port,))
+        thread.start_new_thread(updateserversonindb, (server, adresse, port,))
         time.sleep(0.1)
 
 def noemptyservers(opt):
 
-    print("Search no empty servers")
+    print "Search no empty servers"
     listnoemptyservers = listserv(opt)
     updateserversonindb(listnoemptyservers)
 
@@ -178,7 +169,7 @@ def updateserversonindb(server, adresse, port):
     sslots = data[5]
 
     if "//" in sname:
-        sname = sname.split("//")[1]
+        sname = sname.split("//")[0]
 
     if "4.1" in sversion:
         sversion = "4.1"
@@ -201,12 +192,12 @@ def updateserversonindb(server, adresse, port):
     if not resultat:
 
         if sname != "Unknown" and sversion != "Unknown"  and sversion != "4.1":
-            print("insert %s"%server)
+            print "insert %s"%server
             cur.execute("INSERT INTO servers VALUES ('%s','%s','%s','%s',%s, %s, %s, %s, '%s')"%(server, sname, sversion, sgametype, data[3], data[4], sslots, date, pays))
             conn.commit()
 
     else:
-        print(resultat)
+        print resultat
         name = resultat[1]
         version = resultat[2]
         gametype = resultat[3]
@@ -222,7 +213,7 @@ def updateserversonindb(server, adresse, port):
             sslots = slots
 
         if sname != "Unknown" and sversion != "Unknown" and sversion != "4.1":
-            print("update %s"%server)
+            print "update %s"%server
             cur.execute("UPDATE servers SET name = '%s', version = '%s', gametype = '%s', players = %s, bots = %s, slots = %s, date = %s, pays = '%s' WHERE adresse = '%s'"%(sname, sversion, sgametype, data[3], data[4], sslots, date, pays, server))
             conn.commit()
 
@@ -241,11 +232,11 @@ def updateserversoffindb(listservers):
         resultat = cur.fetchall()
 
         if not resultat:
-            print ("the database is empty")
+            print "la db est vide"
 
         for x in resultat:
             if x[0] not in listservers:
-                print("database delete server: %s"%x[0])
+                print "db delete server: %s"%x[0]
                 cur.execute("DELETE FROM servers WHERE adresse='%s'"%x[0])
 
     cur.close()
@@ -274,7 +265,7 @@ def intmaster(host, port, opt):
 
 def infoserver(adresse, port):
 
-    print ("infoserver %s:%s"%(adresse, port))
+    print "infoserver %s:%s"%(adresse, port)
 
     data = status(adresse, port)
 
@@ -347,7 +338,7 @@ def infoserver(adresse, port):
         if (gametype == '11'):
            gametype='GunGame'
 
-    print("%s %s %s %s %s %s"%(servername, version, gametype, players, bots, slots))
+    print "%s %s %s %s %s %s"%(servername, version, gametype, players, bots, slots)
 
     return servername, version, gametype, players, bots, slots
 

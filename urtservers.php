@@ -551,7 +551,7 @@ $reponse->closeCursor();
         </div>
         <footer>
             <div class="bas-page">
-                <span style ="color:green;">P</span><span style="color: #000;">tit</span><span style ="color:green;">B</span><span style="color: #000;">igorneau</span> © 2018 <a href="https://ptitbigorneau.fr">ptitbigorneau.fr</a>
+                <span style ="color:green;">P</span><span style="color: #000;">tit</span><span style ="color:green;">B</span><span style="color: #000;">igorneau</span> © 2018-2019 <a href="https://ptitbigorneau.fr">ptitbigorneau.fr</a>
             </div>
         </footer>
         <script src="js/javascript.js"></script>

@@ -1,5 +1,5 @@
-# Q3MasterServer  (PYTHON 3)
-# Copyright (C) 2015-2019 PtitBigorneau
+# Q3MasterServer
+# Copyright (C) 2015 PtitBigorneau
 #
 # PtitBigorneau - www.ptitbigorneau.fr
 #
@@ -19,20 +19,20 @@
 #
 
 __author__  = 'PtitBigorneau'
-__version__ = '2'
-#########################################################################################################
-import sys
+__version__ = '1.1'
 
-if sys.version_info < (3,):
-    raise SystemExit("Sorry, requires Python 3, not Python 2.")
-#########################################################################################################
 import socket
-    
+
+try:
+    from socket import inet_ntop as inet_ntop
+except ImportError:
+    from dns.inet import inet_ntop as inet_ntop
+
 class Q3masterServer:
 
     def __init__(self, host, port, opt):
 
-        packet_prefix = bytes([0xff] * 4)
+        packet_prefix = '\xff' * 4
         responses = []
         self.serverslist = []
 
@@ -40,15 +40,13 @@ class Q3masterServer:
         s.connect((host, port))
         s.settimeout(2)
 
-        option = "getservers  68 %s"%opt
-
-        cmd = packet_prefix + option.encode()
+        cmd = packet_prefix+'getservers  68 %s'%opt
         s.send(cmd)
 
         while True:
 
             try:
-                response = s.recv(2048)
+                response = s.recv(1395)
             except:
 
                 break
@@ -67,8 +65,8 @@ class Q3masterServer:
                 if index+7>=len(packet):
                     break
 
-                ip = socket.inet_ntop(socket.AF_INET, packet[index+1:index+5])
-                port = 256*packet[index+5] + packet[index+6]
+                ip = inet_ntop(socket.AF_INET, packet[index+1:index+5])
+                port = 256*ord(packet[index+5]) + ord(packet[index+6])
                 index+=7
                 server =  ip+':'+str(port)
                 self.serverslist.append(server)
