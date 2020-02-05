@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `servers` (
   `adresse` varchar(32) NOT NULL,
-  `name` varchar(64) NOT NULL,
+  `name` varchar(256) NOT NULL,
   `version` varchar(11) NOT NULL,
   `gametype` varchar(11) NOT NULL,
   `players` int(11) NOT NULL,

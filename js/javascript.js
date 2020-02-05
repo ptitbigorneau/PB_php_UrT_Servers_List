@@ -1,21 +1,27 @@
-var i = 30000;
-var s = i /1000;
+function checkUrTServers(){
+    $.ajax({
+        url : 'urtservers.php',
+        type : 'GET',
+        dataType : 'html',
+        success : function(code_html, statut){
+            document.getElementById("contenu").innerHTML = code_html;
+        }
+    });
 
-var compteur = document.getElementById("compteur");
+    setTimeout(checkUrTServers,60000);
 
-Fcompteur(compteur, s);
-
-function Fcompteur(compteur, s) {
-      
-    setTimeout(function() {
-        Fcompteur(compteur, s - 1);
-    }, 1000);
-	if (s > 1) {
-        compteur.textContent = "updated : " + s + " secondes";
-    }
-	else {
-		compteur.textContent = "updated : " + s + " seconde";
-	}
 }
 
-window.setTimeout("window.location.reload();",i);
+function myFunction(n){
+    $.ajax({
+        url : 'urtservers.php?data='+n,
+        type : 'GET',
+        dataType : 'html',
+        success : function(code_html, statut){
+            document.getElementById("contenu").innerHTML = code_html;
+        }
+    });
+
+}
+
+checkUrTServers();
