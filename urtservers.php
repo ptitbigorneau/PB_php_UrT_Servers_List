@@ -355,10 +355,10 @@ $urtserverslist = '
                     <table>
                         <thead>
                             <tr class="tr2">
-                                <th class="th2"><span class="th2l">Country</span><div class="th2r"><span onclick="myFunction(1)"><a>&#8657; </a> </span><span onclick="myFunction(2)"> <a> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(3)"><a>&#8657; </a> </span><span onclick="myFunction(4)"> <a> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(5)"><a>&#8657; </a> </span><span onclick="myFunction(6)"> <a> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(7)"><a>&#8657; </a> </span><span onclick="myFunction(8)"> <a> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">Country</span><div class="th2r"><span onclick="myFunction(1)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(2)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(3)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(4)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(5)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(6)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(7)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(8)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
                             </tr>
                         </thead>
                         <tbody>';
@@ -433,7 +433,7 @@ foreach ($listpays as $key => $value){
 
     if ($paysdb) {
 
-        $urtserverslist = $urtserverslist.'<td class="td5"><a><img src="flags/'.strtolower($paysdb).'.png"; " title="'.$arraypays[$paysdb].'"/></a></td>';
+        $urtserverslist = $urtserverslist.'<td class="td5"><a href="javascript:void(0)"><img src="flags/'.strtolower($paysdb).'.png"; " title="'.$arraypays[$paysdb].'"/></a></td>';
 
     }
     else {
@@ -495,10 +495,10 @@ $urtserverslist = $urtserverslist.'
                     <table>
                         <thead>
                             <tr class="tr4">
-                                <th class="th2"><span class="th2l">GameType</span><div class="th2r"><span onclick="myFunction(9)"><a>&#8657; </a> </span><span onclick="myFunction(10)"> <a> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(11)"><a>&#8657; </a> </span><span onclick="myFunction(12)"> <a> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(13)"><a>&#8657; </a> </span><span onclick="myFunction(14)"> <a> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(15)"><a>&#8657; </a> </span><span onclick="myFunction(16)"> <a> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">GameType</span><div class="th2r"><span onclick="myFunction(9)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(10)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(11)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(12)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(13)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(14)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                                <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(15)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(16)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
                             </tr>
                         </thead>
                         <tbody>';
@@ -576,15 +576,15 @@ $urtserverslist = $urtserverslist.'
                 <table>
                     <thead>
                         <tr class="tr5">
-                            <th class="th22"><span class="th2l">Version</span><div class="th2r"><span onclick="myFunction(17)"><a>&#8657; </a> </span><span onclick="myFunction(18)"> <a> &#8659;</a></span></div></th>
-                            <th class="th23"><span onclick="myFunction(19)"><a>&#8657; </a> </span><span onclick="myFunction(20)"> <a> &#8659;</a></span></th>
-                            <th class="th_server"><span class="th2l">Server</span><div class="th2r"><span onclick="myFunction(21)"><a>&#8657; </a> </span><span onclick="myFunction(22)"> <a> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Address</span><div class="th2r"><span onclick="myFunction(23)"><a>&#8657; </a> </span><span onclick="myFunction(24)"> <a> &#8659;</a></span></div></th>
-                            <th class="th22b"><span class="th2l">Gametype</span><div class="th2r"><span onclick="myFunction(25)"><a>&#8657; </a> </span><span onclick="myFunction(26)"> <a> &#8659;</a></span></div></th>
-                            <th class="th22b"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(27)"><a>&#8657; </a> </span><span onclick="myFunction(28)"> <a> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(29)"><a>&#8657; </a> </span><span onclick="myFunction(30)"> <a> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Slots</span><div class="th2r"><span onclick="myFunction(31)"><a>&#8657; </a> </span><span onclick="myFunction(32)"> <a> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Update</span><div class="th2r"><span onclick="myFunction(33)"><a>&#8657; </a> </span><span onclick="myFunction(34)"> <a>&#8659;</a></span></div></th>
+                            <th class="th22"><span class="th2l">Version</span><div class="th2r"><span onclick="myFunction(17)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(18)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                            <th class="th23"><span onclick="myFunction(19)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(20)"> <a href="javascript:void(0)"> &#8659;</a></span></th>
+                            <th class="th_server"><span class="th2l">Server</span><div class="th2r"><span onclick="myFunction(21)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(22)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                            <th class="th22"><span class="th2l">Address</span><div class="th2r"><span onclick="myFunction(23)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(24)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                            <th class="th22b"><span class="th2l">Gametype</span><div class="th2r"><span onclick="myFunction(25)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(26)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                            <th class="th22b"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(27)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(28)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                            <th class="th22"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(29)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(30)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                            <th class="th22"><span class="th2l">Slots</span><div class="th2r"><span onclick="myFunction(31)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(32)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+                            <th class="th22"><span class="th2l">Update</span><div class="th2r"><span onclick="myFunction(33)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(34)"> <a href="javascript:void(0)">&#8659;</a></span></div></th>
                         </tr>
                     </thead>
                     <tbody>';
@@ -597,7 +597,7 @@ while($row=$reponse->fetch()){
 
     if ($pays) {
         $urtserverslist = $urtserverslist.'
-                            <td class="td6"><a><img src="flags/'.strtolower($pays).'.png"; " title="'.$arraypays[$pays].'"/></a></td>';
+                            <td class="td6"><a href="javascript:void(0)"><img src="flags/'.strtolower($pays).'.png"; " title="'.$arraypays[$pays].'"/></a></td>';
 
     }
     else {
