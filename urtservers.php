@@ -433,7 +433,7 @@ foreach ($listpays as $key => $value){
 
     if ($paysdb) {
 
-        $urtserverslist = $urtserverslist.'<td class="td5"><a href="javascript:void(0)"><img src="flags/'.strtolower($paysdb).'.png"; " title="'.$arraypays[$paysdb].'"/></a></td>';
+        $urtserverslist = $urtserverslist.'<td class="td5"><a><img src="flags/'.strtolower($paysdb).'.png"; " title="'.$arraypays[$paysdb].'"/></a></td>';
 
     }
     else {
@@ -597,7 +597,7 @@ while($row=$reponse->fetch()){
 
     if ($pays) {
         $urtserverslist = $urtserverslist.'
-                            <td class="td6"><a href="javascript:void(0)"><img src="flags/'.strtolower($pays).'.png"; " title="'.$arraypays[$pays].'"/></a></td>';
+                            <td class="td6"><a><img src="flags/'.strtolower($pays).'.png"; " title="'.$arraypays[$pays].'"/></a></td>';
 
     }
     else {
