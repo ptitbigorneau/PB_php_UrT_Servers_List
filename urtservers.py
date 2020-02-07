@@ -29,6 +29,7 @@ if sys.version_info < (3,):
 #########################################################################################################
 import socket
 import pymysql
+import _thread
 import datetime, time, calendar
 from time import gmtime, strftime
 from datetime import datetime
@@ -120,7 +121,7 @@ def intmaster(host, port, opt):
 #########################################################################################################
 def testserverindb(adresse):
     rows = None
-
+    
     try:
         dbconnect = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
         cursor = dbconnect.cursor()
@@ -141,12 +142,13 @@ def testserverindb(adresse):
 #  Update DataBase
 #########################################################################################################
 def updatedb(data, opt):
+
     if opt == 1:
         requete = 'INSERT INTO servers(adresse, name, version, gametype, players, bots, slots, date, pays) VALUES ("%s", "%s", "%s", "%s", %s, %s, %s, %s, "%s")'%data
     if opt == 2:
         requete = 'UPDATE servers SET adresse = "%s", name = "%s", version = "%s", gametype = "%s", players = %s, bots = %s, slots = %s, date = %s, pays = "%s" WHERE adresse = "%s"'%data
     if opt == 3:
-        requete = 'DELETE FROM servers WHERE adresse="%s"'%data
+        requete = 'DELETE FROM servers WHERE date < %s'%(data - 180)
     try:
         dbconnect = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
         cursor = dbconnect.cursor()
@@ -299,12 +301,12 @@ def status(adresse, port):
         if online == 1:
             data = (serveradresse, hostname, modversion, gametype, nplayers, bots, maxclients, date, pays, serveradresse,)
             updatedb(data, 2)
-        else:
-            updatedb(serveradresse, 3)
     else:
         if online == 1:
             data = (serveradresse, hostname, modversion, gametype, nplayers, bots, maxclients, date, pays)
             updatedb(data, 1)
+    
+    updatedb(date, 3)   
 
 #########################################################################################################
 # Main
@@ -315,15 +317,15 @@ def main():
     print("---------------------------------------")
     for server in listservers:
         data = server.split(':')
-        status(data[0], data[1])
-
+        _thread.start_new_thread(status, (data[0], data[1],))
+        time.sleep(0.1)
     listservers = []
     listservers = listserv("empty")
     print("---------------------------------------")
     for server in listservers:
         data = server.split(':')
-        status(data[0], data[1])
-
+        _thread.start_new_thread(status, (data[0], data[1],))
+        time.sleep(0.1)
 #########################################################################################################
 if __name__ == '__main__':
     while True:
