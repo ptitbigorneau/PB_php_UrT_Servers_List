@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'pays.php';
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $a=$_GET["data"];
 if(isset($_GET["data"])) {
     if ($_GET["data"] >= 1 AND $_GET["data"] <= 8 ) {
@@ -14,7 +14,7 @@ if(isset($_GET["data"])) {
 	    $_SESSION['tab3'] = $_GET["data"];
     }
 };
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $config = parse_ini_file('config/config.ini', false);
 
 $dbhost = $config['host'];
@@ -26,6 +26,43 @@ $listpays = array();
 $listgametype = array('FFA' => array(), 'LMS' => array(), 'TDM' => array(), 'TS' => array(), 'FTL' => array(), 'CandH' => array(), 'CTF' => array(), 'Bomb' => array(), 'Jump' => array(), 'Freeze' => array(), 'GunGame' => array());
 
 $bdd = new PDO('mysql:host='.$dbhost.';dbname='.$dbname.';charset=utf8', $dbuser, $dbpassword);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Clean & Colors Name
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function clean_and_colors( $str ) {
+   $colors = array(
+        0 =>'black',
+        1 =>'red',
+        2 =>'green',
+        3 =>'yellow',
+        4 =>'blue',
+        5 =>'cyan',
+        6 =>'#FF00FF',
+        7 =>'white',
+        8 =>'#FF6600',
+        9 =>'grey');
+    $str = htmlentities($str);
+    $i = 0;
+    $nb = 0;
+    $pos = strpos($str, '^' , $i);
+    while ($pos !== false) {
+        $i = $pos;
+        if ( isset( $str[$i+1] , $colors[ $str[$i+1] ] ) ) {
+            if ($str[$i+1] != 0) {$replace = '<span style="color: '.$colors[ $str[$i+1] ].'; text-shadow: 1px 1px #000;">';}
+            else {$replace = '<span style="color: '.$colors[ $str[$i+1] ].';">';}
+            if ($nb >0)
+                $replace = '</span>'.$replace;
+                $tmp = $i - 1 + strlen($replace);
+                $str = substr($str, 0, $i  ). $replace . substr($str, $i + 2 );
+                $i = $tmp;
+                $nb ++;
+            }
+            $pos = strpos($str, '^', $i + 1 );
+        }
+        if ( $nb >0 )
+            $str .= '</span>';
+    return $str;
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Liste pays
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -606,9 +643,9 @@ while($row=$reponse->fetch()){
 
     }
         $urtserverslist = $urtserverslist.'
-                            <td class="td7">  '.$row["name"].' </td>
+                            <td class="td7">  '.clean_and_colors($row["name"]).' </td>
                             <td class="td3">  '.$row["adresse"].' </td>
-                            <td class="td4">  '.$row["gametype"].' </td>
+                            <td class="td3">  '.$row["gametype"].' </td>
                             <td class="td4">  '.$row["players"].' </td>
                             <td class="td4">  '.$row["bots"].' </td>
                             <td class="td4">  '.$row["slots"].' </td>

@@ -1,7 +1,7 @@
 # -*-coding:Utf-8 -*
 
 # UrTServers (PYTHON 3)
-# Copyright (C) 2018-2019 PtitBigorneau
+# Copyright (C) 2018-2020 PtitBigorneau
 #
 # PtitBigorneau - www.ptitbigorneau.fr
 #
@@ -20,7 +20,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 __author__  = 'PtitBigorneau'
-__version__ = '2'
+__version__ = '3'
 #########################################################################################################
 import sys
 
@@ -29,14 +29,15 @@ if sys.version_info < (3,):
 #########################################################################################################
 import socket
 import pymysql
-import _thread
 import datetime, time, calendar
 from time import gmtime, strftime
 from datetime import datetime
-from q3masterserver import Q3masterServer
 import geoip2.database
 import configparser
-
+from q3masterserver import Q3masterServer
+#########################################################################################################
+# ConfigParser
+#########################################################################################################
 config = configparser.ConfigParser()
 config.read("config/config.ini")
 dbhost = config.get('database', 'host')
@@ -45,7 +46,9 @@ dbpassword = config.get('database', 'password')
 dbname = config.get('database', 'name')
 
 geoip2_path = config.get('geoip2', 'path')
-
+#########################################################################################################
+# Date
+#########################################################################################################
 def cdate():
 
     time_epoch = time.time()
@@ -55,74 +58,22 @@ def cdate():
     cdate = calendar.timegm( mysql_time_struct)
 
     return cdate
+#########################################################################################################
+# Clean Name
+#########################################################################################################
+def cleanname(data):
 
-def status(adresse, port):
+    data = data.replace('     ',' ')
+    data = data.replace('    ',' ')
+    data = data.replace('   ',' ')
+    data = data.replace('  ',' ')
+    data = data.replace('\x07','')
 
-    retries = 5
-    timeout = 20
-    packet_prefix = bytes([0xff] * 4)
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect((adresse, int(port)))
-    s.settimeout(timeout)
-    cmd = packet_prefix + b"getstatus\n"
-    reponse = None
-
-    while retries:
-        s.send(cmd)
-        try:
-            reponse = s.recv(2048)
-            retries = 0
-        except:
-            reponse = None
-            retries -= 1
-
-    s.close()
-
-    if reponse:
-
-        reponse = reponse.replace(b"\xff",b"*").decode()
-        
-        index1 = reponse.find('\n')
-        infoline = reponse[index1+1:]
-
-        index2 = infoline.find('\n')
-        infoline = infoline[:index2]
-
-        playerlines = reponse[index1+index2+1:]
-
-        split = infoline[1:].split('\\')
-        vars = dict(zip(split[::2], split[1::2]))
-
-        playerslist = playerlines.split('\n')
-
-        bots = 0
-
-        for x in playerslist:
-            if not x:
-                playerslist.remove(x)
-
-        np = 0
-        for x in playerslist:
-            if x != '':
-                playerdata = x.split('"')
-                playerdata2 = playerdata[0].split(" ")
-                ping = playerdata2[1]
-                np = np + 1
-
-                if ping == "0":
-                    bots = bots + 1
-
-        nplayers = np - bots
-
-    else:
-
-        vars = None
-        nplayers = 0
-        bots = 0
-
-    return vars, nplayers, bots
-
-def supurtcolors(data):
+    return data
+#########################################################################################################
+# Clean Color Name
+#########################################################################################################
+def cleancolorname(data):
 
     data = data.replace('^1','')
     data = data.replace('^2','')
@@ -134,123 +85,16 @@ def supurtcolors(data):
     data = data.replace('^8','')
     data = data.replace('^9','')
     data = data.replace('^0','')
-    data = data.replace('^','')
-    data = data.replace("'",' ')
-    data = data.replace('"',' ')
     data = data.replace('     ',' ')
     data = data.replace('    ',' ')
     data = data.replace('   ',' ')
     data = data.replace('  ',' ')
-    data = data.replace('<','&lt;')
-    data = data.replace('>','&gt;')
     data = data.replace('\x07','')
-    data = data.replace('//','')
+
     return data
-
-def allservers(opt):
-
-    print("Search all servers")
-    listallservers = listserv(opt)
-    updateserversoffindb(listallservers)
-
-    for server in listallservers:
-        data = server.split(":")
-        adresse = data[0]
-        port = data[1]
-        _thread.start_new_thread(updateserversonindb, (server, adresse, port,))
-        time.sleep(0.1)
-
-def noemptyservers(opt):
-
-    print("Search no empty servers")
-    listnoemptyservers = listserv(opt)
-    updateserversonindb(listnoemptyservers)
-
-def updateserversonindb(server, adresse, port):
-
-    conn = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
-
-    data = infoserver(adresse, port)
-
-    sname = data[0]
-    sversion = data[1]
-    sgametype = data[2]
-    sslots = data[5]
-
-    if "//" in sname:
-        sname = sname.split("//")[1]
-
-    if "4.1" in sversion:
-        sversion = "4.1"
-
-    date = cdate()
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM servers WHERE adresse = '%s'"%server)
-
-    ipdata = server.split(':')
-
-    reader = geoip2.database.Reader(geoip2_path)
-    try:
-        r = reader.city(ipdata[0])
-        pays = r.country.iso_code
-    except:
-        pays = ""
-
-    resultat = cur.fetchone()
-
-    if not resultat:
-
-        if sname != "Unknown" and sversion != "Unknown"  and sversion != "4.1":
-            print("insert %s"%server)
-            cur.execute("INSERT INTO servers VALUES ('%s','%s','%s','%s',%s, %s, %s, %s, '%s')"%(server, sname, sversion, sgametype, data[3], data[4], sslots, date, pays))
-            conn.commit()
-
-    else:
-        print(resultat)
-        name = resultat[1]
-        version = resultat[2]
-        gametype = resultat[3]
-        slots = int(resultat[6])
-
-        if sname == "Unknown":
-            sname = name
-        if sversion == "Unknown":
-            sversion = version
-        if sgametype == "???":
-            sgametype = gametype
-        if sslots == 0:
-            sslots = slots
-
-        if sname != "Unknown" and sversion != "Unknown" and sversion != "4.1":
-            print("update %s"%server)
-            cur.execute("UPDATE servers SET name = '%s', version = '%s', gametype = '%s', players = %s, bots = %s, slots = %s, date = %s, pays = '%s' WHERE adresse = '%s'"%(sname, sversion, sgametype, data[3], data[4], sslots, date, pays, server))
-            conn.commit()
-
-    cur.close()
-    conn.close()
-
-def updateserversoffindb(listservers):
-
-    conn = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
-
-    with conn:
-
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM servers")
-
-        resultat = cur.fetchall()
-
-        if not resultat:
-            print ("the database is empty")
-
-        for x in resultat:
-            if x[0] not in listservers:
-                print("database delete server: %s"%x[0])
-                cur.execute("DELETE FROM servers WHERE adresse='%s'"%x[0])
-
-    cur.close()
-    conn.close()
-
+#########################################################################################################
+# List servers
+#########################################################################################################
 def listserv(opt):
 
     servers = []
@@ -271,59 +115,144 @@ def intmaster(host, port, opt):
     m = Q3masterServer(host, port, opt)
     listservers = m.ListServers()
     return listservers
+#########################################################################################################
+#  Test Server in DataBase
+#########################################################################################################
+def testserverindb(adresse):
+    rows = None
 
-def infoserver(adresse, port):
+    try:
+        dbconnect = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
+        cursor = dbconnect.cursor()
+        cursor.execute('SELECT * FROM servers WHERE adresse = "%s"'%(adresse))
+        rows = cursor.fetchall()
+        cursor.close()
 
-    print ("infoserver %s:%s"%(adresse, port))
-
-    data = status(adresse, port)
-
-    vars = data[0]
-    players = data[1]
-    bots = data[2]
-
-    if vars == None:
-
-        servername = "Unknown"
-        version = "Unknown"
-        players = 0
-        bots = 0
-        slots = 0
-        gametype = "???"
-
+    except pymysql.Error as error:
+        print("Mysql: ", error)
+    finally:
+        if (dbconnect):
+            dbconnect.close()
+    if rows:
+        return True
     else:
+        return False
+#########################################################################################################
+#  Update DataBase
+#########################################################################################################
+def updatedb(data, opt):
+    if opt == 1:
+        requete = 'INSERT INTO servers(adresse, name, version, gametype, players, bots, slots, date, pays) VALUES ("%s", "%s", "%s", "%s", %s, %s, %s, %s, "%s")'%data
+    if opt == 2:
+        requete = 'UPDATE servers SET adresse = "%s", name = "%s", version = "%s", gametype = "%s", players = %s, bots = %s, slots = %s, date = %s, pays = "%s" WHERE adresse = "%s"'%data
+    if opt == 3:
+        requete = 'DELETE FROM servers WHERE adresse="%s"'%data
+    try:
+        dbconnect = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
+        cursor = dbconnect.cursor()
+        cursor.execute(requete)
+        dbconnect.commit()
+        cursor.close()
 
-        if 'sv_hostname' in vars:
-            servername = vars['sv_hostname']
-            servername = supurtcolors(servername)
-        else:
-            servername = "Unknown"
+    except pymysql.Error as error:
+        print("Mysql: ", error)
+    finally:
+        if (dbconnect):
+            dbconnect.close()
+#########################################################################################################
+# Status
+#########################################################################################################
+def status(adresse, port):
 
-        if 'g_modversion' in vars:
-            version = vars['g_modversion']
-        else:
-            version = "Unknown"
+    serveradresse = "%s:%s"%(adresse, port)
+    hostname = serveradresse
+    gametype = 0
+    mapname = None
+    modversion = None
+    maxclients = 0
+    privateclients = 0
+    nplayers = 0
+    bots = 0
+    retries = 1
+    timeout = 2
+    packet_prefix = bytes([0xff] * 4)
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect((adresse, int(port)))
+    s.settimeout(timeout)
+    cmd = packet_prefix + b"getstatus\n"
+    reponse = None
 
-        if 'sv_privateClients' in vars:
-            privateslots = int(vars['sv_privateClients'])
-        else:
-            privateslots = 0
+    while retries:
+        s.send(cmd)
+        try:
+            reponse = s.recv(2048)
+            retries = 0
+        except:
+            reponse = None
+            retries -= 1
 
-        if 'sv_privateclients' in vars:
-            privateslots = int(vars['sv_privateclients'])
-        else:
-            privateslots = 0
+    s.close()
 
-        if 'sv_maxclients' in vars:
-            slots = int(vars['sv_maxclients']) - privateslots
-        else:
-            slots = 0
+    if reponse:
+        playerlines = None
 
-        if 'g_gametype' in vars:
-            gametype = vars['g_gametype']
-        else:
-            gametype = "???"
+        reponse = reponse.replace(b"\xff",b"*")
 
+        reponse = reponse.decode()
+        index1 = reponse.find('\n')
+        infoline = reponse[index1+1:]
+
+        index2 = infoline.find('\n')
+        infoline = infoline[:index2]
+
+        playerlines = reponse[index1+index2+1:]
+
+        split = infoline[1:].split('\\')
+        vars = dict(zip(split[::2], split[1::2]))
+
+        playerslist = playerlines.split('\n')
+
+        for x in playerslist:
+            if not x:
+                playerslist.remove(x)
+
+        np = 0
+        for x in playerslist:
+            if x != '':
+                playerdata = x.split('"')
+                playerdata2 = playerdata[0].split(" ")
+                ping = playerdata2[1]
+                np = np + 1
+
+                if ping == "0":
+                    bots = bots + 1
+
+        nplayers = np - bots
+        try:
+            hostname = vars["sv_hostname"]
+        except:
+            hostname = "unknown"
+        try:                   
+            gametype = vars["g_gametype"]
+        except:
+            gametype = 0              
+        try:
+            mapname = vars["mapname"]
+        except:
+            mapname = "unknown"
+        try:
+            modversion = vars["g_modversion"]
+        except:
+            modversion = "unknown"
+        try:
+            maxclients = vars["sv_maxclients"]
+        except:                   
+            maxclients = 0
+        try:
+            privateclients = vars["sv_privateClients"]
+        except:
+            privateclients = 0               
+        
         if (gametype == '0') or (gametype == '2'):
             gametype='FFA'
         if (gametype == '1'):
@@ -347,17 +276,57 @@ def infoserver(adresse, port):
         if (gametype == '11'):
            gametype='GunGame'
 
-    print("%s %s %s %s %s %s"%(servername, version, gametype, players, bots, slots))
+        online = 1
+        print("%s online"%(serveradresse))
+        hostname = cleanname(vars["sv_hostname"])
+    
+    else:
+        online = 0
+        print("%s offline"%(serveradresse))
+    
+    date = cdate()
+    ############################################
+    # GeoI
+    ############################################
+    reader = geoip2.database.Reader(geoip2_path)
+    try:
+        r = reader.city(adresse)
+        pays = r.country.iso_code
+    except:
+        pays = ""
+    ############################################
+    if testserverindb("%s"%(serveradresse)):
+        if online == 1:
+            data = (serveradresse, hostname, modversion, gametype, nplayers, bots, maxclients, date, pays, serveradresse,)
+            updatedb(data, 2)
+        else:
+            updatedb(serveradresse, 3)
+    else:
+        if online == 1:
+            data = (serveradresse, hostname, modversion, gametype, nplayers, bots, maxclients, date, pays)
+            updatedb(data, 1)
 
-    return servername, version, gametype, players, bots, slots
-
+#########################################################################################################
+# Main
+#########################################################################################################
 def main():
+    listservers = []
+    listservers = listserv("full")
+    print("---------------------------------------")
+    for server in listservers:
+        data = server.split(':')
+        status(data[0], data[1])
 
-    allservers("full empty")
+    listservers = []
+    listservers = listserv("empty")
+    print("---------------------------------------")
+    for server in listservers:
+        data = server.split(':')
+        status(data[0], data[1])
 
+#########################################################################################################
 if __name__ == '__main__':
-
     while True:
+        print("start")
         main()
-        time.sleep(30)
 
