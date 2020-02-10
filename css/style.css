@@ -1,18 +1,17 @@
 html {
-	font-size: 100%;
-	height: 101%;
+    font-size: 100%;
+    height: 101%;
 }
 
 body {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 0.8em;
-	line-height: normal;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 0.8em;
 }
 
 h1 {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	font-size: 2.5em;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 2.5em;
 }
 
 table {
@@ -31,12 +30,12 @@ td {
 }
 
 a {
-	font-weight: bold;
-	text-decoration: none;
+    font-weight: bold;
+    text-decoration: none;
     color: #FFFFFF;
 }
 a:hover, a:focus {
-	text-decoration: none;
+    text-decoration: none;
     color: #000000;
 }
 
@@ -79,13 +78,13 @@ a:hover, a:focus {
     text-align: right;
 }
 .th22 {
-	min-width: 80px;
+    min-width: 80px;
 }
 .th22b {
-	min-width: 95px;
+    min-width: 95px;
 }
 .th23 {
-	min-width: 30px;
+    min-width: 30px;
 }
 .td1 {
     background-color: #8EAEF0;
@@ -115,42 +114,118 @@ a:hover, a:focus {
    font-weight: bold;
 }
 
-.bas-page {
+#bas-page {
     text-align: center;
     color: #ffffff;
     border-radius: 10px;
     background-color: #8EAEF0;
     font-size: 1em;
     padding-top: 10px;
-    padding-bottom: 10px;	
+    padding-bottom: 10px;
 }
 
-.bas-page a:hover, .bas-page a:focus {
-	text-decoration: none;
+#bas-page a:hover, "bas-page a:focus {
+    text-decoration: none;
     color: #6075A0;
 }
 
 #contenu {
-    margin-left: auto;
-    margin-right: auto;	
+    margin-left: 10px;
+    margin-right: 10px;
 }
-#droite {
-    display: inline-block;
-    vertical-align: top;
+
+#titre {
+    margin-left: 10px;
+}
+#tableau1 table {
+    width: 400px;
 }
 
 #gauche {
     display: inline-block;
 }
-
+#droite {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 20px;
+}
 #droite table {
-	width: 400px;
-    margin-left: 10px;
-	margin-right: 10px;
+    max-width: 1410px;
+}
+#gauche table {
+    width: 400px;
 }
 
-#gauche table {
-	max-width: 1410px;
-    margin-left: 10px;
-    margin-right: 10px;
+#droite2 {
+   display: none;
+}
+
+@media (max-width: 1874px) {
+    #titre {
+        text-align: center;
+    }
+    #contenu {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    #gauche {
+       vertical-align: top;
+       display: block;
+       margin-left: 10px;
+    }
+
+    #droite {
+        vertical-align: none;
+        display: block;
+        margin-left: 0px;
+    }
+
+    #droite table {
+        margin-left: auto;
+        margin-right: auto;
+        width: 98%;
+    }
+    #hleft {
+        float: left;
+        margin-left: 50px;
+    }
+    #hright {
+        float: right;
+        margin-right: 50px;
+    }
+
+}
+@media (max-width: 1049px) {
+    #droite {
+        display: none;
+    }
+    #droite2 {
+        vertical-align: none;
+        display: block;
+        margin-left: 0px;
+    }
+    #droite2 table {
+        margin-left: auto;
+        margin-right: auto;
+        width: 98%;
+    }
+    .th22 {
+        min-width: 70px;
+    }
+}
+@media (max-width: 949px) {
+    #hleft {
+        margin-left: 1%;
+    }
+    #hright {
+        margin-right: 1%;
+    }
+}
+@media (max-width: 849px) {
+    #hleft {
+        float: none;
+    }
+    #hright {
+        float: none;
+    }
 }

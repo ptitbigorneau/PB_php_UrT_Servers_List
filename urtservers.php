@@ -5,13 +5,13 @@ include 'pays.php';
 $a=$_GET["data"];
 if(isset($_GET["data"])) {
     if ($_GET["data"] >= 1 AND $_GET["data"] <= 8 ) {
-	    $_SESSION['tab1'] = $_GET["data"];
+        $_SESSION['tab1'] = $_GET["data"];
     }
     if ($_GET["data"] >= 9 AND $_GET["data"] <= 16 ) {
-	    $_SESSION['tab2'] = $_GET["data"];
+        $_SESSION['tab2'] = $_GET["data"];
     }
     if ($_GET["data"] >= 17 AND $_GET["data"] <= 34 ) {
-	    $_SESSION['tab3'] = $_GET["data"];
+        $_SESSION['tab3'] = $_GET["data"];
     }
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -361,44 +361,27 @@ while($row = $reponse->fetch()){
 $reponse->closeCursor();
 $undeux = $un + $deux;
 
-$urtserverslist = '
-            <div id="droite">
-                <div class="tableau">
-                    <table>
-                        <tr>
-                            <th class="th1">Servers</th>
-                            <td class="td1">'.$servers.'</td>
-                        </tr>
-                        <tr>
-                            <th class="th12">Servers without Players</th>
-                            <td class="td12"> '.$empty.'</td>
-                        </tr>
-                        <tr>
-                            <th class="th1">Servers with Players</th>
-                            <td class="td1">'.$undeux.'</td>
-                        </tr>
-                        <tr>
-                            <th class="th12">Player(s)</th>
-                            <td class="td12">'.$players.'</td>
-                        </tr>
-                        <tr>
-                            <th class="th1">Bot(s)</th>
-                            <td class="td1">'.$bots.'</td>
-                        </tr>
-
-                    </table>
-                </div>
-                <div class="tableau">
-                    <table>
-                        <thead>
-                            <tr class="tr2">
-                                <th class="th2"><span class="th2l">Country</span><div class="th2r"><span onclick="myFunction(1)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(2)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(3)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(4)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(5)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(6)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(7)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(8)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            </tr>
-                        </thead>
-                        <tbody>';
+$urtserverslist = '<div id="gauche"><div id="hleft"><div id="tableau1"><table>
+    <tr>
+        <th class="th1">Servers</th>
+        <td class="td1">'.$servers.'</td>
+    </tr>
+    <tr>
+        <th class="th12">Player(s)</th>
+        <td class="td12">'.$players.'</td>
+    </tr>
+    <tr>
+        <th class="th1">Bot(s)</th>
+        <td class="td1">'.$bots.'</td>
+    </tr>
+</table></div><div id="tableau2"><table><thead>
+    <tr class="tr2">
+        <th class="th2"><span class="th2l">Country</span><div class="th2r"><span onclick="myFunction(1)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(2)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(3)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(4)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(5)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(6)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(7)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(8)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+    </tr>
+</thead><tbody>';
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 foreach ($listpays as $key => $value){
     $paysdb = $key;
@@ -419,7 +402,6 @@ foreach ($listpays as $key => $value){
     $reponse->closeCursor();
 
     array_push($listpays[$key], $ns, $nplayers, $nbots);
-    
 }
 
 if ($_SESSION['tab1'] == 1) {ksort($listpays);}
@@ -427,7 +409,7 @@ elseif ($_SESSION['tab1'] == 2) {krsort($listpays);}
 elseif ($_SESSION['tab1'] == 3) {arsort($listpays);}
 elseif ($_SESSION['tab1'] == 4) {asort($listpays);}
 elseif ($_SESSION['tab1'] == 5) {
-	uasort($listpays, function ($a, $b) {
+    uasort($listpays, function ($a, $b) {
         if($a[1] == $b[1]) {
             return 0;
         }
@@ -443,7 +425,7 @@ elseif ($_SESSION['tab1'] == 6) {
     });
 }
 elseif ($_SESSION['tab1'] == 7) {
-	uasort($listpays, function ($a, $b) {
+    uasort($listpays, function ($a, $b) {
         if($a[2] == $b[2]) {
             return 0;
         }
@@ -458,7 +440,7 @@ elseif ($_SESSION['tab1'] == 8) {
         return ($a[2] < $b[2]) ? -1 : 1;
     });
 }
-else {ksort($listpays);}
+else {arsort($listpays);}
 
 foreach ($listpays as $key => $value){
     $paysdb = $key;
@@ -483,18 +465,14 @@ foreach ($listpays as $key => $value){
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$urtserverslist = $urtserverslist.'</tbody></table></div>
-                <div class="tableau">
-                    <table>
-                        <thead>
-                            <tr class="tr3">
-                                <th class="th2">Version</th>
-                                <th class="th2b">Server(s)</th>
-                                <th class="th2b">Player(s)</th>
-                                <th class="th2b">Bot(s)</th>
-                            </tr>
-                        </thead>
-                        <tbody>';
+$urtserverslist = $urtserverslist.'</tbody></table></div></div><div id="hright"><div id="tableau3"><table><thead>
+    <tr class="tr3">
+        <th class="th2">Version</th>
+        <th class="th2b">Server(s)</th>
+        <th class="th2b">Player(s)</th>
+        <th class="th2b">Bot(s)</th>
+    </tr>
+</thead><tbody>';
 
 for ($numero = 0; $numero < count($listversion); $numero++) {
     $versiondb = $listversion[$numero];
@@ -515,37 +493,29 @@ for ($numero = 0; $numero < count($listversion); $numero++) {
     $reponse->closeCursor();
 
     $urtserverslist = $urtserverslist.'
-                            <tr class="tr1">
-                                <td class="td7">  '.$versiondb.' </td>
-                                <td class="td2">  '.$ns.' </td>
-                                <td class="td2">  '.$nplayers.' </td>
-                                <td class="td2">  '.$nbots.' </td>
-                            </tr>';
-
+<tr class="tr1">
+    <td class="td7">  '.$versiondb.' </td>
+    <td class="td2">  '.$ns.' </td>
+    <td class="td2">  '.$nplayers.' </td>
+    <td class="td2">  '.$nbots.' </td>
+</tr>';
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$urtserverslist = $urtserverslist.'
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tableau">
-                    <table>
-                        <thead>
-                            <tr class="tr4">
-                                <th class="th2"><span class="th2l">GameType</span><div class="th2r"><span onclick="myFunction(9)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(10)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(11)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(12)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(13)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(14)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                                <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(15)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(16)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            </tr>
-                        </thead>
-                        <tbody>';
+$urtserverslist = $urtserverslist.'</tbody></table></div><div id="tableau4"><table><thead>
+    <tr class="tr4">
+        <th class="th2"><span class="th2l">GameType</span><div class="th2r"><span onclick="myFunction(9)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(10)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th2"><span class="th2l">Server(s)</span><div class="th2r"><span onclick="myFunction(11)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(12)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th2"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(13)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(14)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th2"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(15)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(16)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+    </tr>
+</thead><tbody>';
 
 if ($_SESSION['tab2'] == 9) {ksort($listgametype);}
 elseif ($_SESSION['tab2'] == 10) {krsort($listgametype);}
 elseif ($_SESSION['tab2'] == 11) {arsort($listgametype);}
 elseif ($_SESSION['tab2'] == 12) {asort($listgametype);}
 elseif ($_SESSION['tab2'] == 13) {
-	uasort($listgametype, function ($a, $b) {
+    uasort($listgametype, function ($a, $b) {
         if($a[1] == $b[1]) {
             return 0;
         }
@@ -561,7 +531,7 @@ elseif ($_SESSION['tab2'] == 14) {
     });
 }
 elseif ($_SESSION['tab2'] == 15) {
-	uasort($listgametype, function ($a, $b) {
+    uasort($listgametype, function ($a, $b) {
         if($a[2] == $b[2]) {
             return 0;
         }
@@ -583,81 +553,110 @@ foreach ($listgametype as $key => $value){
     $ns = $value[0];
     $nplayers = $value[1];
     $nbots = $value[2];
-	
-    $urtserverslist = $urtserverslist.'<tr class="tr1">
-                                <td class="td7">'.$gt.'</td><td class="td2">  '.$ns.' </td><td class="td2">  '.$nplayers.' </td><td class="td2">  '.$nbots.' </td></tr>';
+    
+    $urtserverslist = $urtserverslist.'<tr class="tr1"><td class="td7">'.$gt.'</td><td class="td2">  '.$ns.' </td><td class="td2">  '.$nplayers.' </td><td class="td2">  '.$nbots.' </td></tr>';
 }
-$urtserverslist = $urtserverslist.'</tbody></table></div></div><div id="gauche">';
+$urtserverslist = $urtserverslist.'</tbody></table></div></div></div>';
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if ($_SESSION['tab3'] == 17) {$reponse = $bdd->query("SELECT * FROM servers order by version desc, players desc");}
-elseif ($_SESSION['tab3'] == 18) {$reponse = $bdd->query("SELECT * FROM servers order by version asc, players desc");}
-elseif ($_SESSION['tab3'] == 19) {$reponse = $bdd->query("SELECT * FROM servers order by pays desc, players desc");}
-elseif ($_SESSION['tab3'] == 20) {$reponse = $bdd->query("SELECT * FROM servers order by pays asc, players desc");}
-elseif ($_SESSION['tab3'] == 21) {$reponse = $bdd->query("SELECT * FROM servers order by name desc");}
-elseif ($_SESSION['tab3'] == 22) {$reponse = $bdd->query("SELECT * FROM servers order by name asc");}
-elseif ($_SESSION['tab3'] == 23) {$reponse = $bdd->query("SELECT * FROM servers order by adresse desc");}
-elseif ($_SESSION['tab3'] == 24) {$reponse = $bdd->query("SELECT * FROM servers order by adresse asc");}
-elseif ($_SESSION['tab3'] == 25) {$reponse = $bdd->query("SELECT * FROM servers order by gametype desc, players desc");}
-elseif ($_SESSION['tab3'] == 26) {$reponse = $bdd->query("SELECT * FROM servers order by gametype asc, players desc");}
-elseif ($_SESSION['tab3'] == 27) {$reponse = $bdd->query("SELECT * FROM servers order by players desc");}
-elseif ($_SESSION['tab3'] == 28) {$reponse = $bdd->query("SELECT * FROM servers order by players asc");}
-elseif ($_SESSION['tab3'] == 29) {$reponse = $bdd->query("SELECT * FROM servers order by bots desc, players desc");}
-elseif ($_SESSION['tab3'] == 30) {$reponse = $bdd->query("SELECT * FROM servers order by bots asc, players desc");}
-elseif ($_SESSION['tab3'] == 31) {$reponse = $bdd->query("SELECT * FROM servers order by slots desc, players desc");}
-elseif ($_SESSION['tab3'] == 32) {$reponse = $bdd->query("SELECT * FROM servers order by slots asc, players desc");}
-elseif ($_SESSION['tab3'] == 33) {$reponse = $bdd->query("SELECT * FROM servers order by date desc, players desc");}
-elseif ($_SESSION['tab3'] == 34) {$reponse = $bdd->query("SELECT * FROM servers order by date asc, players desc");}
-else {$reponse = $bdd->query("SELECT * FROM servers order by version desc, players desc");}
+if ($_SESSION['tab3'] == 17) {$requete = "SELECT * FROM servers order by version desc, players desc";}
+elseif ($_SESSION['tab3'] == 18) {$requete = "SELECT * FROM servers order by version asc, players desc";}
+elseif ($_SESSION['tab3'] == 19) {$requete = "SELECT * FROM servers order by pays desc, players desc";}
+elseif ($_SESSION['tab3'] == 20) {$requete = "SELECT * FROM servers order by pays asc, players desc";}
+elseif ($_SESSION['tab3'] == 21) {$requete = "SELECT * FROM servers order by name desc";}
+elseif ($_SESSION['tab3'] == 22) {$requete = "SELECT * FROM servers order by name asc";}
+elseif ($_SESSION['tab3'] == 23) {$requete = "SELECT * FROM servers order by adresse desc";}
+elseif ($_SESSION['tab3'] == 24) {$requete = "SELECT * FROM servers order by adresse asc";}
+elseif ($_SESSION['tab3'] == 25) {$requete = "SELECT * FROM servers order by gametype desc, players desc";}
+elseif ($_SESSION['tab3'] == 26) {$requete = "SELECT * FROM servers order by gametype asc, players desc";}
+elseif ($_SESSION['tab3'] == 27) {$requete = "SELECT * FROM servers order by players desc";}
+elseif ($_SESSION['tab3'] == 28) {$requete = "SELECT * FROM servers order by players asc";}
+elseif ($_SESSION['tab3'] == 29) {$requete = "SELECT * FROM servers order by bots desc, players desc";}
+elseif ($_SESSION['tab3'] == 30) {$requete = "SELECT * FROM servers order by bots asc, players desc";}
+elseif ($_SESSION['tab3'] == 31) {$requete = "SELECT * FROM servers order by slots desc, players desc";}
+elseif ($_SESSION['tab3'] == 32) {$requete = "SELECT * FROM servers order by slots asc, players desc";}
+elseif ($_SESSION['tab3'] == 33) {$requete = "SELECT * FROM servers order by date desc, players desc";}
+elseif ($_SESSION['tab3'] == 34) {$requete = "SELECT * FROM servers order by date asc, players desc";}
+else {$requete = "SELECT * FROM servers order by version desc, players desc";}
+
+$reponse = $bdd->query($requete);
 
 $urtserverslist = $urtserverslist.'
-                <table>
-                    <thead>
-                        <tr class="tr5">
-                            <th class="th22"><span class="th2l">Version</span><div class="th2r"><span onclick="myFunction(17)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(18)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            <th class="th23"><span onclick="myFunction(19)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(20)"> <a href="javascript:void(0)"> &#8659;</a></span></th>
-                            <th class="th_server"><span class="th2l">Server</span><div class="th2r"><span onclick="myFunction(21)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(22)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Address</span><div class="th2r"><span onclick="myFunction(23)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(24)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            <th class="th22b"><span class="th2l">Gametype</span><div class="th2r"><span onclick="myFunction(25)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(26)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            <th class="th22b"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(27)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(28)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(29)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(30)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Slots</span><div class="th2r"><span onclick="myFunction(31)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(32)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
-                            <th class="th22"><span class="th2l">Update</span><div class="th2r"><span onclick="myFunction(33)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(34)"> <a href="javascript:void(0)">&#8659;</a></span></div></th>
-                        </tr>
-                    </thead>
-                    <tbody>';
+<div id="droite"><table id="tableau5">
+    <thead>
+        <tr class="tr5">
+            <th class="th22"><span class="th2l">Version</span><div class="th2r"><span onclick="myFunction(17)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(18)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+            <th class="th23"><span onclick="myFunction(19)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(20)"> <a href="javascript:void(0)"> &#8659;</a></span></th>
+            <th class="th_server"><span class="th2l">Server</span><div class="th2r"><span onclick="myFunction(21)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(22)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+            <th class="th22"><span class="th2l">Address</span><div class="th2r"><span onclick="myFunction(23)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(24)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+            <th class="th22b"><span class="th2l">Gametype</span><div class="th2r"><span onclick="myFunction(25)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(26)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+            <th class="th22b"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(27)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(28)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+            <th class="th22"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(29)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(30)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+            <th class="th22"><span class="th2l">Slots</span><div class="th2r"><span onclick="myFunction(31)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(32)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+            <th class="th22"><span class="th2l">Update</span><div class="th2r"><span onclick="myFunction(33)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(34)"> <a href="javascript:void(0)">&#8659;</a></span></div></th>
+        </tr>
+    </thead><tbody>';
 while($row=$reponse->fetch()){
     $ip = explode(":", $row["adresse"]);
     $pays = $row["pays"];
-    $urtserverslist = $urtserverslist.'
-                        <tr class="tr1">
-                            <td class="td3">  '.$row["version"].' </td>';
+    $urtserverslist = $urtserverslist.'<tr class="tr1"><td class="td3">  '.$row["version"].' </td>';
 
     if ($pays) {
-        $urtserverslist = $urtserverslist.'
-                            <td class="td6"><a><img src="flags/'.strtolower($pays).'.png"; " title="'.$arraypays[$pays].'"/></a></td>';
+        $urtserverslist = $urtserverslist.'<td class="td6"><a><img src="flags/'.strtolower($pays).'.png"; " title="'.$arraypays[$pays].'"/></a></td>';
 
     }
     else {
-        $urtserverslist = $urtserverslist.'
-                            <td class="td3"> </td>';
+        $urtserverslist = $urtserverslist.'<td class="td3"> </td>';
 
     }
-        $urtserverslist = $urtserverslist.'
-                            <td class="td7">  '.clean_and_colors($row["name"]).' </td>
-                            <td class="td3">  '.$row["adresse"].' </td>
-                            <td class="td3">  '.$row["gametype"].' </td>
-                            <td class="td4">  '.$row["players"].' </td>
-                            <td class="td4">  '.$row["bots"].' </td>
-                            <td class="td4">  '.$row["slots"].' </td>
-                            <td class="td4">  '.date("H:i",$row["date"]).' </td>
-                        </tr>';
+    $urtserverslist = $urtserverslist.'
+    <td class="td7">  '.clean_and_colors($row["name"]).' </td>
+    <td class="td3">  '.$row["adresse"].' </td>
+    <td class="td3">  '.$row["gametype"].' </td>
+    <td class="td4">  '.$row["players"].' </td>
+    <td class="td4">  '.$row["bots"].' </td>
+    <td class="td4">  '.$row["slots"].' </td>
+    <td class="td4">  '.date("H:i",$row["date"]).' </td>
+</tr>';
 
 }
 $reponse->closeCursor();
-$urtserverslist = $urtserverslist.'
-                    </tbody>
-                </table>
-            </div>';
+$urtserverslist = $urtserverslist.'</tbody></table></div>';
+$reponse = $bdd->query($requete);
+$urtserverslist = $urtserverslist.'<div id="droite2"><table id="tableau6"><thead>
+    <tr class="tr5">
+        <th class="th22"><span class="th2l">Vers.</span><div class="th2r"><span onclick="myFunction(17)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(18)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th23"><span onclick="myFunction(19)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(20)"> <a href="javascript:void(0)"> &#8659;</a></span></th>
+        <th class="th_server"><span class="th2l">Server</span><div class="th2r"><span onclick="myFunction(21)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(22)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th22"><span class="th2l">Address</span><div class="th2r"><span onclick="myFunction(23)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(24)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th22b"><span class="th2l">Gametype</span><div class="th2r"><span onclick="myFunction(25)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(26)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th22b"><span class="th2l">Player(s)</span><div class="th2r"><span onclick="myFunction(27)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(28)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+        <th class="th22"><span class="th2l">Bot(s)</span><div class="th2r"><span onclick="myFunction(29)"><a href="javascript:void(0)">&#8657; </a> </span><span onclick="myFunction(30)"> <a href="javascript:void(0)"> &#8659;</a></span></div></th>
+    </tr>
+</thead><tbody>';
+while($row=$reponse->fetch()){
+    $ip = explode(":", $row["adresse"]);
+    $pays = $row["pays"];
+    $urtserverslist = $urtserverslist.'<tr class="tr1"><td class="td3">  '.$row["version"].' </td>';
+
+    if ($pays) {
+        $urtserverslist = $urtserverslist.'<td class="td6"><a><img src="flags/'.strtolower($pays).'.png"; " title="'.$arraypays[$pays].'"/></a></td>';
+
+    }
+    else {
+        $urtserverslist = $urtserverslist.'<td class="td3"> </td>';
+
+    }
+    $urtserverslist = $urtserverslist.'
+    <td class="td7">  '.clean_and_colors($row["name"]).' </td>
+    <td class="td3">  '.$row["adresse"].' </td>
+    <td class="td3">  '.$row["gametype"].' </td>
+    <td class="td4">  '.$row["players"].'/'.$row["slots"].' </td>
+    <td class="td4">  '.$row["bots"].' </td>
+</tr>';
+
+}
+$reponse->closeCursor();
+$urtserverslist = $urtserverslist.'</tbody></table></div>';
 
 $reponse->closeCursor();
 
