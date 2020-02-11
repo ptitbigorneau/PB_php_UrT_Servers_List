@@ -288,7 +288,7 @@ def status(adresse, port):
     
     date = cdate()
     ############################################
-    # GeoI
+    # GeoIp
     ############################################
     reader = geoip2.database.Reader(geoip2_path)
     try:

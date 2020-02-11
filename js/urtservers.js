@@ -1,4 +1,4 @@
-function checkUrTServers(){
+function updateUrTServers(){
     $.ajax({
         url : 'urtservers.php',
         type : 'GET',
@@ -8,11 +8,11 @@ function checkUrTServers(){
         }
     });
 
-    setTimeout(checkUrTServers,60000);
+    setTimeout(updateUrTServers,60000);
 
 }
 
-function myFunction(n){
+function FunctionTableTry(n){
     $.ajax({
         url : 'urtservers.php?data='+n,
         type : 'GET',
@@ -24,4 +24,4 @@ function myFunction(n){
 
 }
 
-checkUrTServers();
+updateUrTServers();
