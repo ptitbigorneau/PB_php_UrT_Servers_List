@@ -8,6 +8,8 @@ $dbuser = $config['user'];
 $dbpassword = $config['password'];
 $dbname = $config['name'];
 
+$style = $config['style'];
+
 $listpays = array();
 $listgametype = array('FFA' => array(), 'LMS' => array(), 'TDM' => array(), 'TS' => array(), 'FTL' => array(), 'CandH' => array(), 'CTF' => array(), 'Bomb' => array(), 'Jump' => array(), 'Freeze' => array(), 'GunGame' => array());
 

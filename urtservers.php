@@ -13,6 +13,9 @@ if(isset($_GET["data"])) {
         $_SESSION['tab3'] = $_GET["data"];
     }
 }
+if (!isset($_SESSION['tab1'])) { $_SESSION['tab1'] = 0;}
+if (!isset($_SESSION['tab2'])) { $_SESSION['tab2'] = 0;}
+if (!isset($_SESSION['tab3'])) { $_SESSION['tab3'] = 0;}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $reponse = $bdd->query('SELECT version FROM servers order by version desc');
 
