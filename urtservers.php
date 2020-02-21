@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'functions.php';
+include 'bd_servers.php';
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 if(isset($_GET["data"])) {
     if ($_GET["data"] >= 1 AND $_GET["data"] <= 8 ) {
@@ -37,11 +38,11 @@ $urtserverslist = '<div id="gauche"><div id="hleft"><div id="tableau1"><table>
     </tr>
     <tr>
         <th class="th1-2">Player(s)</th>
-        <td class="td1-2">'.$players.'</td>
+        <td class="td1-2">'.$nplayers.'</td>
     </tr>
     <tr>
         <th class="th1">Bot(s)</th>
-        <td class="td1">'.$bots.'</td>
+        <td class="td1">'.$nbots.'</td>
     </tr>
 </table></div><div id="tableau2"><table><thead>
     <tr class="tr2">
@@ -55,7 +56,7 @@ $urtserverslist = '<div id="gauche"><div id="hleft"><div id="tableau1"><table>
 foreach ($listpays as $key => $value){
     $paysdb = $key;
 
-    $reponse = $bdd->query('SELECT players, bots FROM servers WHERE pays="'.$paysdb.'"');
+    $reponse = $bdd->query('SELECT nplayers, nbots FROM servers WHERE pays="'.$paysdb.'"');
 
     $ns = 0;
     $nplayers = 0;
@@ -64,8 +65,8 @@ foreach ($listpays as $key => $value){
     while($row = $reponse->fetch()){
 
         $ns = $ns + 1;
-        $nplayers = $nplayers + $row["players"];
-        $nbots = $nbots + $row["bots"];
+        $nplayers = $nplayers + $row["nplayers"];
+        $nbots = $nbots + $row["nbots"];
 
     }
     $reponse->closeCursor();
@@ -146,7 +147,7 @@ $urtserverslist = $urtserverslist.'</tbody></table></div></div><div id="hright">
 for ($numero = 0; $numero < count($listversion); $numero++) {
     $versiondb = $listversion[$numero];
 
-    $reponse = $bdd->query('SELECT players, bots FROM servers WHERE version="'.$versiondb.'"');
+    $reponse = $bdd->query('SELECT nplayers, nbots FROM servers WHERE version="'.$versiondb.'"');
 
     $ns = 0;
     $nplayers = 0;
@@ -155,8 +156,8 @@ for ($numero = 0; $numero < count($listversion); $numero++) {
     while($row = $reponse->fetch()){
 
         $ns = $ns + 1;
-        $nplayers = $nplayers + $row["players"];
-        $nbots = $nbots + $row["bots"];
+        $nplayers = $nplayers + $row["nplayers"];
+        $nbots = $nbots + $row["nbots"];
 
     }
     $reponse->closeCursor();
@@ -227,25 +228,25 @@ foreach ($listgametype as $key => $value){
 }
 $urtserverslist = $urtserverslist.'</tbody></table></div></div></div>';
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if ($_SESSION['tab3'] == 17) {$requete = "SELECT * FROM servers order by version desc, players desc";}
-elseif ($_SESSION['tab3'] == 18) {$requete = "SELECT * FROM servers order by version asc, players desc";}
-elseif ($_SESSION['tab3'] == 19) {$requete = "SELECT * FROM servers order by pays desc, players desc";}
-elseif ($_SESSION['tab3'] == 20) {$requete = "SELECT * FROM servers order by pays asc, players desc";}
+if ($_SESSION['tab3'] == 17) {$requete = "SELECT * FROM servers order by version desc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 18) {$requete = "SELECT * FROM servers order by version asc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 19) {$requete = "SELECT * FROM servers order by pays desc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 20) {$requete = "SELECT * FROM servers order by pays asc, nplayers desc";}
 elseif ($_SESSION['tab3'] == 21) {$requete = "SELECT * FROM servers order by name desc";}
 elseif ($_SESSION['tab3'] == 22) {$requete = "SELECT * FROM servers order by name asc";}
 elseif ($_SESSION['tab3'] == 23) {$requete = "SELECT * FROM servers order by adresse desc";}
 elseif ($_SESSION['tab3'] == 24) {$requete = "SELECT * FROM servers order by adresse asc";}
-elseif ($_SESSION['tab3'] == 25) {$requete = "SELECT * FROM servers order by gametype desc, players desc";}
-elseif ($_SESSION['tab3'] == 26) {$requete = "SELECT * FROM servers order by gametype asc, players desc";}
-elseif ($_SESSION['tab3'] == 27) {$requete = "SELECT * FROM servers order by players desc";}
-elseif ($_SESSION['tab3'] == 28) {$requete = "SELECT * FROM servers order by players asc";}
-elseif ($_SESSION['tab3'] == 29) {$requete = "SELECT * FROM servers order by bots desc, players desc";}
-elseif ($_SESSION['tab3'] == 30) {$requete = "SELECT * FROM servers order by bots asc, players desc";}
-elseif ($_SESSION['tab3'] == 31) {$requete = "SELECT * FROM servers order by slots desc, players desc";}
-elseif ($_SESSION['tab3'] == 32) {$requete = "SELECT * FROM servers order by slots asc, players desc";}
-elseif ($_SESSION['tab3'] == 33) {$requete = "SELECT * FROM servers order by date desc, players desc";}
-elseif ($_SESSION['tab3'] == 34) {$requete = "SELECT * FROM servers order by date asc, players desc";}
-else {$requete = "SELECT * FROM servers order by version desc, players desc";}
+elseif ($_SESSION['tab3'] == 25) {$requete = "SELECT * FROM servers order by gametype desc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 26) {$requete = "SELECT * FROM servers order by gametype asc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 27) {$requete = "SELECT * FROM servers order by nplayers desc";}
+elseif ($_SESSION['tab3'] == 28) {$requete = "SELECT * FROM servers order by nplayers asc";}
+elseif ($_SESSION['tab3'] == 29) {$requete = "SELECT * FROM servers order by nnbots desc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 30) {$requete = "SELECT * FROM servers order by nbots asc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 31) {$requete = "SELECT * FROM servers order by slots desc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 32) {$requete = "SELECT * FROM servers order by slots asc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 33) {$requete = "SELECT * FROM servers order by date desc, nplayers desc";}
+elseif ($_SESSION['tab3'] == 34) {$requete = "SELECT * FROM servers order by date asc, nplayers desc";}
+else {$requete = "SELECT * FROM servers order by version desc, nplayers desc";}
 
 $reponse = $bdd->query($requete);
 
@@ -278,11 +279,11 @@ while($row=$reponse->fetch()){
 
     }
     $urtserverslist = $urtserverslist.'
-    <td class="td7">'.clean_and_colors($row["name"]).'</td>
-    <td class="td3">'.$row["adresse"].'</td>
-    <td class="td3">'.$row["gametype"].'</td>
-    <td class="td4">'.$row["players"].'</td>
-    <td class="td4">'.$row["bots"].'</td>
+    <td class="td7"><a href="urtviewers.php?adr='.$row["adresse"].'">'.clean_and_colors($row["name"]).'</a></td>
+    <td class="td3"><a href="urtviewers.php?adr='.$row["adresse"].'">'.$row["adresse"].'</a></td>
+    <td class="td3">'.name_gametype($row["gametype"])[0].'</td>
+    <td class="td4">'.$row["nplayers"].'</td>
+    <td class="td4">'.$row["nbots"].'</td>
     <td class="td4">'.$row["slots"].'</td>
     <td class="td4">'.date("H:i",$row["date"]).'</td>
 </tr>';
@@ -323,11 +324,11 @@ while($row=$reponse->fetch()){
 
     }
     $urtserverslist = $urtserverslist.'
-    <td class="td7">'.clean_and_colors($row["name"]).'</td>
-    <td class="td3">'.$row["adresse"].'</td>
-    <td class="td3">'.$row["gametype"].'</td>
-    <td class="td4">'.$row["players"].'</td>
-    <td class="td4">'.$row["bots"].'</td>
+    <td class="td7"><a href="urtviewers.php?adr='.$row["adresse"].'">'.clean_and_colors($row["name"]).'</a></td>
+    <td class="td3"><a href="urtviewers.php?adr='.$row["adresse"].'">'.$row["adresse"].'</a></td>
+    <td class="td3">'.name_gametype($row["gametype"])[0].'</td>
+    <td class="td4">'.$row["nplayers"].'</td>
+    <td class="td4">'.$row["nbots"].'</td>
     <td class="td4">'.$row["slots"].'</td>
     <td class="td4">'.date("H:i",$row["date"]).'</td>
 </tr>';
@@ -365,10 +366,10 @@ while($row=$reponse->fetch()){
 
     }
     $urtserverslist = $urtserverslist.'
-    <td class="td7">'.clean_and_colors($row["name"]).'</td>
-    <td class="td3">'.$row["adresse"].'</td>
-    <td class="td3">'.$row["gametype"].'</td>
-    <td class="td4">'.$row["players"].'/'.$row["slots"].'['.$row["bots"].']</td>
+    <td class="td7"><a href="urtviewers.php?adr='.$row["adresse"].'">'.clean_and_colors($row["name"]).'</a></td>
+    <td class="td3"><a href="urtviewers.php?adr='.$row["adresse"].'">'.$row["adresse"].'</a></td>
+    <td class="td3">'.name_gametype($row["gametype"])[0].'</td>
+    <td class="td4">'.$row["nplayers"].'/'.$row["slots"].'['.$row["nbots"].']</td>
 </tr>';
 
 }
@@ -405,14 +406,14 @@ while($row=$reponse->fetch()){
 
     }
 
-    $gametype = $row["gametype"];
+    $gametype = name_gametype($row["gametype"])[0];
     if ($gametype == "GunGame") {$gametype = "GG";}
     if ($gametype == "Freeze") {$gametype = "FT";}
 
     $urtserverslist = $urtserverslist.'
-    <td class="td7"><p>'.clean_and_colors($row["name"]).'<br /><span class="td7-2">'.$row["adresse"].'</span></p></td>
+    <td class="td7"><p><a href="urtviewers.php?adr='.$row["adresse"].'">'.clean_and_colors($row["name"]).'<br /><span class="td7-2">'.$row["adresse"].'</span></a></p></td>
     <td class="td3">'.$gametype.' </td>
-    <td class="td4"><p>'.$row["players"].'/'.$row["slots"].'<br />['.$row["bots"].']</p></td>
+    <td class="td4"><p>'.$row["nplayers"].'/'.$row["slots"].'<br />['.$row["nbots"].']</p></td>
 </tr>';
 
 }
@@ -421,6 +422,5 @@ $urtserverslist = $urtserverslist.'</tbody></table></div>';
 
 $reponse = $bdd->query($requete);
 
-echo $urtserverslist;
 ?>
     

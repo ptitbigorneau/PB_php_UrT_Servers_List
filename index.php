@@ -1,5 +1,5 @@
 <?php
-include 'functions.php';
+include 'urtservers.php';
 ?>
 <!DOCTYPE html>
     <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -7,12 +7,13 @@ include 'functions.php';
             <meta charset="utf-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="stylesheet" href="css/style.css" />
             <link rel="stylesheet" href="<?php echo $style;?>" />
             <title>PtitBigorneau - Servers Urban Terror</title>
         </head>
     <body>
         <div id="titre"><h1>Servers UrbanTerror 4.3</h1></div>
-        <div id="contenu"></div>
+        <div id="contenu"><?php echo $urtserverslist;?></div>
         <footer>
             <div id="bas-page">
                 <span style ="color:green;">P</span><span>tit</span><span style ="color:green;">B</span><span>igorneau</span> © 2018-2020 <a href="https://ptitbigorneau.fr">ptitbigorneau.fr</a>

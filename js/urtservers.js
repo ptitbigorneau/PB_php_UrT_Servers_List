@@ -1,6 +1,6 @@
 function updateUrTServers(){
     $.ajax({
-        url : 'urtservers.php',
+        url : 'update_urtservers.php',
         type : 'GET',
         dataType : 'html',
         success : function(code_html, statut){
@@ -14,7 +14,7 @@ function updateUrTServers(){
 
 function FunctionTableTry(n){
     $.ajax({
-        url : 'urtservers.php?data='+n,
+        url : 'update_urtservers.php?data='+n,
         type : 'GET',
         dataType : 'html',
         success : function(code_html, statut){

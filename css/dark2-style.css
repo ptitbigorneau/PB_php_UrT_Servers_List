@@ -1,0 +1,64 @@
+body {
+    background-color: #161616;
+    color: #FFFFFF;
+}
+a {
+    color: #FFFFFF;
+}
+a:hover, a:focus {
+    color: #0073C2;
+    text-decoration: none;
+}
+
+.tr1:nth-child(odd) {
+    background-color: #161616;
+}
+.tr1:nth-child(even) {
+    background-color: #393939;
+}
+.tr2, .th1, .td1 {
+    background-color: #262626;
+}
+
+.th1-2, .td1-2 {
+    background-color: #393939;
+}
+.th_server, .th2, .th2b, .th3, .th4, .th5, .th6, .th7 {
+    border-bottom: 1px solid #0073C2;
+}
+.td3 a:hover, .td3 a:hover, .td7 a:hover, .td7 a:hover {
+    color: #FFFFFF;
+}
+#bas-page {
+    color: #FFFFFF;
+    background-color: #262626;
+}
+/*Viewers*/
+.returnlist { 
+    background-color: #262626;
+    box-shadow: 2px 2px 6px #000;
+}
+.blocknameserver {
+    background-color: #262626;
+    box-shadow: 2px 2px 6px #000;
+}
+.infoserver {
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 2px 2px 6px #000000 inset;
+}
+.blockinfoserver {
+    box-shadow: 2px 2px 6px #000;
+}
+.vtr1 {
+    background-color: #262626;
+}
+.vtr2:nth-child(odd) {
+    background-color: #161616;
+}
+.vtr2:nth-child(even) {
+    background-color: #393939;
+}
+.noplayers {
+    background-color: #393939;
+    box-shadow: 2px 2px 6px #000;
+}
