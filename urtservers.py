@@ -20,7 +20,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 __author__  = 'PtitBigorneau'
-__version__ = '3'
+__version__ = '4'
 #########################################################################################################
 import sys
 
@@ -121,7 +121,7 @@ def intmaster(host, port, opt):
 #########################################################################################################
 def testserverindb(adresse):
     rows = None
-    
+
     try:
         dbconnect = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
         cursor = dbconnect.cursor()
@@ -142,11 +142,10 @@ def testserverindb(adresse):
 #  Update DataBase
 #########################################################################################################
 def updatedb(data, opt):
-
     if opt == 1:
-        requete = 'INSERT INTO servers(adresse, name, version, gametype, players, bots, slots, date, pays) VALUES ("%s", "%s", "%s", "%s", %s, %s, %s, %s, "%s")'%data
+        requete = 'INSERT INTO servers(adresse, name, cleanname, version, gametype, map, nplayers, nbots, slots, privateslots, lplayers, cleanlplayers, lscores, date, pays) VALUES ("%s", "%s", "%s", "%s", %s, "%s", %s, %s, %s, %s, "%s", "%s", "%s", %s, "%s")'%data
     if opt == 2:
-        requete = 'UPDATE servers SET adresse = "%s", name = "%s", version = "%s", gametype = "%s", players = %s, bots = %s, slots = %s, date = %s, pays = "%s" WHERE adresse = "%s"'%data
+        requete = 'UPDATE servers SET adresse = "%s", name = "%s", cleanname = "%s", version = "%s", gametype = %s, map = "%s", nplayers = %s, nbots = %s, slots = %s, privateslots = %s, lplayers = "%s", cleanlplayers = "%s", lscores = "%s", date = %s, pays = "%s"  WHERE adresse = "%s"'%data
     if opt == 3:
         requete = 'DELETE FROM servers WHERE date < %s'%(data - 180)
     try:
@@ -168,11 +167,15 @@ def status(adresse, port):
 
     serveradresse = "%s:%s"%(adresse, port)
     hostname = serveradresse
+    cleanhostname = serveradresse
     gametype = 0
     mapname = None
     modversion = None
     maxclients = 0
     privateclients = 0
+    listplayers = ""
+    cleanlistplayers = ""
+    listscores = ""
     nplayers = 0
     bots = 0
     retries = 1
@@ -223,6 +226,14 @@ def status(adresse, port):
             if x != '':
                 playerdata = x.split('"')
                 playerdata2 = playerdata[0].split(" ")
+                if np > 0:
+                    listplayers = "%s %s"%(listplayers, cleanname(playerdata[1]).replace(" ",""))
+                    cleanlistplayers = "%s %s"%(cleanlistplayers, cleancolorname(playerdata[1]).replace(" ",""))
+                    listscores = "%s %s"%(listscores, playerdata2[0])
+                else:
+                    listplayers = "%s"%(cleanname(playerdata[1]).replace(" ",""))
+                    cleanlistplayers = "%s"%(cleancolorname(playerdata[1]).replace(" ",""))
+                    listscores = "%s"%(playerdata2[0])
                 ping = playerdata2[1]
                 np = np + 1
 
@@ -255,37 +266,13 @@ def status(adresse, port):
         except:
             privateclients = 0               
         
-        if (gametype == '0') or (gametype == '2'):
-            gametype='FFA'
-        if (gametype == '1'):
-            gametype='LMS'
-        if (gametype == '3'):
-            gametype='TDM'
-        if (gametype == '4'):
-            gametype='TS'
-        if (gametype == '5'):
-            gametype='FTL'
-        if (gametype == '6'):
-            gametype='CandH'
-        if (gametype == '7'):
-            gametype='CTF'
-        if (gametype == '8'):
-            gametype='Bomb'
-        if (gametype == '9'):
-            gametype='Jump'
-        if (gametype == '10'):
-           gametype='Freeze'
-        if (gametype == '11'):
-           gametype='GunGame'
-
         online = 1
         print("%s online"%(serveradresse))
+        cleanhostname = cleancolorname(hostname)
         hostname = cleanname(vars["sv_hostname"])
-    
     else:
         online = 0
         print("%s offline"%(serveradresse))
-    
     date = cdate()
     ############################################
     # GeoIp
@@ -299,15 +286,14 @@ def status(adresse, port):
     ############################################
     if testserverindb("%s"%(serveradresse)):
         if online == 1:
-            data = (serveradresse, hostname, modversion, gametype, nplayers, bots, maxclients, date, pays, serveradresse,)
+            data = (serveradresse, hostname, cleanhostname, modversion, gametype, mapname, nplayers, bots, maxclients, privateclients, listplayers, cleanlistplayers, listscores, date, pays, serveradresse,)
             updatedb(data, 2)
     else:
         if online == 1:
-            data = (serveradresse, hostname, modversion, gametype, nplayers, bots, maxclients, date, pays)
+            data = (serveradresse, hostname, cleanhostname, modversion, gametype, mapname, nplayers, bots, maxclients, privateclients, listplayers, cleanlistplayers, listscores, date, pays)
             updatedb(data, 1)
-    
-    updatedb(date, 3)   
 
+    updatedb(date, 3)
 #########################################################################################################
 # Main
 #########################################################################################################
@@ -319,6 +305,7 @@ def main():
         data = server.split(':')
         _thread.start_new_thread(status, (data[0], data[1],))
         time.sleep(0.1)
+
     listservers = []
     listservers = listserv("empty")
     print("---------------------------------------")
@@ -326,6 +313,7 @@ def main():
         data = server.split(':')
         _thread.start_new_thread(status, (data[0], data[1],))
         time.sleep(0.1)
+
 #########################################################################################################
 if __name__ == '__main__':
     while True:
