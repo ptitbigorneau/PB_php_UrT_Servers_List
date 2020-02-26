@@ -226,19 +226,23 @@ def status(adresse, port):
             if x != '':
                 playerdata = x.split('"')
                 playerdata2 = playerdata[0].split(" ")
+                ping = playerdata2[1]
+                
+                if ping == "0":
+                    bots = bots + 1
+                    playername = "^1[Bot]^7%s"%(cleanname(playerdata[1]).replace(" ",""))
+                else:
+                    playername = "%s"%(cleanname(playerdata[1]).replace(" ",""))
                 if np > 0:
-                    listplayers = "%s %s"%(listplayers, cleanname(playerdata[1]).replace(" ",""))
+                    listplayers = "%s %s"%(listplayers, playername)
                     cleanlistplayers = "%s %s"%(cleanlistplayers, cleancolorname(playerdata[1]).replace(" ",""))
                     listscores = "%s %s"%(listscores, playerdata2[0])
                 else:
-                    listplayers = "%s"%(cleanname(playerdata[1]).replace(" ",""))
+                    listplayers = "%s"%(playername)
                     cleanlistplayers = "%s"%(cleancolorname(playerdata[1]).replace(" ",""))
                     listscores = "%s"%(playerdata2[0])
-                ping = playerdata2[1]
-                np = np + 1
 
-                if ping == "0":
-                    bots = bots + 1
+                np = np + 1
 
         nplayers = np - bots
         try:
