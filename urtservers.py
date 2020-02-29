@@ -19,6 +19,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
+# This product includes GeoLite2 data created by MaxMind, available from
+# https://www.maxmind.com
+#
 __author__  = 'PtitBigorneau'
 __version__ = '4'
 #########################################################################################################
