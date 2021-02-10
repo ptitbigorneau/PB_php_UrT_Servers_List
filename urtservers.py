@@ -23,7 +23,7 @@
 # https://www.maxmind.com
 #
 __author__  = 'PtitBigorneau'
-__version__ = '4'
+__version__ = '4.1'
 #########################################################################################################
 import sys
 
@@ -126,7 +126,12 @@ def testserverindb(adresse):
     rows = None
 
     try:
-        dbconnect = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
+        dbconnect = pymysql.connect(
+            host = dbhost,
+            user = dbuser,
+            password = dbpassword,
+            db = dbname
+        )
         cursor = dbconnect.cursor()
         cursor.execute('SELECT * FROM servers WHERE adresse = "%s"'%(adresse))
         rows = cursor.fetchall()
@@ -152,7 +157,12 @@ def updatedb(data, opt):
     if opt == 3:
         requete = 'DELETE FROM servers WHERE date < %s'%(data - 180)
     try:
-        dbconnect = pymysql.connect(dbhost, dbuser, dbpassword, dbname)
+        dbconnect = pymysql.connect(
+            host = dbhost,
+            user = dbuser,
+            password = dbpassword,
+            db = dbname
+        )
         cursor = dbconnect.cursor()
         cursor.execute(requete)
         dbconnect.commit()
@@ -230,7 +240,7 @@ def status(adresse, port):
                 playerdata = x.split('"')
                 playerdata2 = playerdata[0].split(" ")
                 ping = playerdata2[1]
-                
+
                 if ping == "0":
                     bots = bots + 1
                     playername = "^1[Bot]^7%s"%(cleanname(playerdata[1]).replace(" ",""))
@@ -252,10 +262,10 @@ def status(adresse, port):
             hostname = vars["sv_hostname"]
         except:
             hostname = "unknown"
-        try:                   
+        try: 
             gametype = vars["g_gametype"]
         except:
-            gametype = 0              
+            gametype = 0
         try:
             mapname = vars["mapname"]
         except:
@@ -266,13 +276,13 @@ def status(adresse, port):
             modversion = "unknown"
         try:
             maxclients = vars["sv_maxclients"]
-        except:                   
+        except: 
             maxclients = 0
         try:
             privateclients = vars["sv_privateClients"]
         except:
-            privateclients = 0               
-        
+            privateclients = 0
+
         online = 1
         print("%s online"%(serveradresse))
         cleanhostname = cleancolorname(hostname)
