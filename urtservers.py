@@ -31,7 +31,7 @@ if sys.version_info < (3,):
     raise SystemExit("Sorry, requires Python 3, not Python 2.")
 #########################################################################################################
 import socket
-import pymysql
+import pymysql.cursors
 import _thread
 import datetime, time, calendar
 from time import gmtime, strftime
@@ -132,16 +132,16 @@ def testserverindb(adresse):
             password = dbpassword,
             db = dbname
         )
-        cursor = dbconnect.cursor()
-        cursor.execute('SELECT * FROM servers WHERE adresse = "%s"'%(adresse))
-        rows = cursor.fetchall()
-        cursor.close()
+
+        with dbconnect:
+            with dbconnect.cursor() as cursor:
+                requete = "SELECT * FROM servers WHERE `adresse`=%s"
+                cursor.execute(requete, (adresse))
+                rows = cursor.fetchone()
 
     except pymysql.Error as error:
         print("Mysql: ", error)
-    finally:
-        if (dbconnect):
-            dbconnect.close()
+
     if rows:
         return True
     else:
@@ -151,11 +151,11 @@ def testserverindb(adresse):
 #########################################################################################################
 def updatedb(data, opt):
     if opt == 1:
-        requete = 'INSERT INTO servers(adresse, name, cleanname, version, gametype, map, nplayers, nbots, slots, privateslots, lplayers, cleanlplayers, lscores, date, pays) VALUES ("%s", "%s", "%s", "%s", %s, "%s", %s, %s, %s, %s, "%s", "%s", "%s", %s, "%s")'%data
+        requete = "INSERT INTO servers(`adresse`, `name`, `cleanname`, `version`, gametype, `map`, nplayers, nbots, slots, privateslots, `lplayers`, `cleanlplayers`, `lscores`, date, `pays`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     if opt == 2:
-        requete = 'UPDATE servers SET adresse = "%s", name = "%s", cleanname = "%s", version = "%s", gametype = %s, map = "%s", nplayers = %s, nbots = %s, slots = %s, privateslots = %s, lplayers = "%s", cleanlplayers = "%s", lscores = "%s", date = %s, pays = "%s"  WHERE adresse = "%s"'%data
+        requete = "UPDATE servers SET `adresse` = %s, `name` = %s, `cleanname` = %s, `version` = %s, gametype = %s, `map` = %s, nplayers = %s, nbots = %s, slots = %s, privateslots = %s, `lplayers` = %s, `cleanlplayers` = %s, `lscores` = %s, date = %s, `pays` = %s  WHERE `adresse` = %s"
     if opt == 3:
-        requete = 'DELETE FROM servers WHERE date < %s'%(data - 180)
+        requete = "DELETE FROM servers WHERE date < %s-180"
     try:
         dbconnect = pymysql.connect(
             host = dbhost,
@@ -163,16 +163,12 @@ def updatedb(data, opt):
             password = dbpassword,
             db = dbname
         )
-        cursor = dbconnect.cursor()
-        cursor.execute(requete)
-        dbconnect.commit()
-        cursor.close()
-
+        with dbconnect:
+            with dbconnect.cursor() as cursor:
+                cursor.execute(requete, (data))
+            dbconnect.commit()
     except pymysql.Error as error:
         print("Mysql: ", error)
-    finally:
-        if (dbconnect):
-            dbconnect.close()
 #########################################################################################################
 # Status
 #########################################################################################################
@@ -262,7 +258,7 @@ def status(adresse, port):
             hostname = vars["sv_hostname"]
         except:
             hostname = "unknown"
-        try: 
+        try:
             gametype = vars["g_gametype"]
         except:
             gametype = 0
@@ -276,7 +272,7 @@ def status(adresse, port):
             modversion = "unknown"
         try:
             maxclients = vars["sv_maxclients"]
-        except: 
+        except:
             maxclients = 0
         try:
             privateclients = vars["sv_privateClients"]
