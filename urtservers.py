@@ -31,7 +31,7 @@ if sys.version_info < (3,):
     raise SystemExit("Sorry, requires Python 3, not Python 2.")
 #########################################################################################################
 import socket
-import pymysql.cursors
+import pymysql
 import _thread
 import datetime, time, calendar
 from time import gmtime, strftime
@@ -255,7 +255,7 @@ def status(adresse, port):
 
         nplayers = np - bots
         try:
-            hostname = vars["sv_hostname"]
+            hostname = cleanname(vars["sv_hostname"])
         except:
             hostname = "unknown"
         try:
@@ -282,7 +282,7 @@ def status(adresse, port):
         online = 1
         print("%s online"%(serveradresse))
         cleanhostname = cleancolorname(hostname)
-        hostname = cleanname(vars["sv_hostname"])
+
     else:
         online = 0
         print("%s offline"%(serveradresse))
